@@ -1,3 +1,3 @@
-# FlutterMovie
+# FlutterMovie.
 Display movie info
 
