@@ -1,5 +1,6 @@
 
 import 'package:dio/dio.dart';
+import 'package:flutter_movie_app/model/movie_info.dart';
 import 'package:flutter_movie_app/model/movies.dart';
 
 class DoubanAPI {
@@ -36,9 +37,18 @@ class DoubanAPI {
     path.write("q=$keyword");
     path.write("&start=$startIndex");
     path.write("&count=$_fetchCount");
-    print("getInTheaters:${path.toString()}");
+    print("search:${path.toString()}");
     Response response = await _dioGet(path.toString());
     print(response.data.toString());
     return Movies.from(response.data);
+  }
+
+  Future<MovieInfo> getMovieInfo({String id}) async{
+    var path = new StringBuffer("https://api.douban.com/v2/movie/subject/");
+    path.write("$id");
+    print("getMovieInfo:${path.toString()}");
+    Response response = await _dioGet(path.toString());
+    print(response.data.toString());
+    return MovieInfo.from(response.data);
   }
 }
