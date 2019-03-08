@@ -38,8 +38,15 @@ class Movie {
 
   @override
   String toString() {
-    return 'Movie{rating: $rating, genres: $genres, title: $title, casts: $casts, collect_count: $collect_count, original_title: $original_title, subtype: $subtype, directors: $directors, year: $year, images: $images, alt: $alt, id: $id}';
+    return 'Movie{title: $title}';
   }
+
+//  @override
+//  String toString() {
+//    return 'Movie{rating: $rating, genres: $genres, title: $title, casts: $casts, collect_count: $collect_count, original_title: $original_title, subtype: $subtype, directors: $directors, year: $year, images: $images, alt: $alt, id: $id}';
+//  }
+
+
 }
 
 class Rating {
