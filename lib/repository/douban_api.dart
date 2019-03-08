@@ -1,7 +1,11 @@
 
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_movie_app/model/movie_info.dart';
 import 'package:flutter_movie_app/model/movies.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_movie_app/model/theater.dart';
 
 class DoubanAPI {
   static final DoubanAPI _internal = DoubanAPI.internal();
@@ -50,5 +54,15 @@ class DoubanAPI {
     Response response = await _dioGet(path.toString());
     print(response.data.toString());
     return MovieInfo.from(response.data);
+  }
+
+  Future<List<Theater>> getTheater({String cityName}) async {
+    Map<String, dynamic> dmap = await parseJsonFromAssets('assets/data/theater.json');
+    return (dmap[cityName] as List).map((value) => Theater.from(value)).toList();
+  }
+
+  Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
+    return rootBundle.loadString(assetsPath)
+        .then((jsonStr) => jsonDecode(jsonStr));
   }
 }

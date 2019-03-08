@@ -1,0 +1,252 @@
+{
+  "Taipei": [
+    {
+      "name": "台北信義威秀",
+      "phone": "(02)8780-5566",
+      "address": "台北市信義區松壽路16、18號",
+      "web": "https://www.vscinemas.com.tw/vsTicketing/ticketing/ticket.aspx"
+    },
+    {
+      "name": "新民生戲院",
+      "phone": "(02)2765-3373",
+      "address": "台北市松山區民生東路五段190號3樓",
+      "web": "http://www.minshen.com.tw/movies.php"
+    },
+    {
+      "name": "喜滿客京華影城",
+      "phone": "(02)3762-2001",
+      "address": "台北市松山區八德路四段138號B1",
+      "web": "http://cmk.today/"
+    },
+    {
+      "name": "國賓微風影城",
+      "phone": "(02)8772-1234",
+      "address": "台北市松山區復興南路一段39號(微風廣場7樓)",
+      "web": "http://www.ambassador.com.tw/"
+    },
+    {
+      "name": "誠品電影院",
+      "phone": "(02)6636-5888",
+      "address": "台北市信義區菸廠路88號B2",
+      "web": "https://meet.eslite.com/tw/tc/gallery/movieschedule/201803020001"
+    },
+    {
+      "name": "喜樂時代影城",
+      "phone": "(02)2788-8185",
+      "address": "台北市南港區忠孝東路7段299號11、12、13、14樓",
+      "web": "http://www.centuryasia.com.tw/default.aspx"
+    },
+    {
+      "name": "梅花數位影院",
+      "phone": "(02)2732-6968",
+      "address": "台北市大安區和平東路三段63號2樓",
+      "web": "http://blossom.movie.com.tw/"
+    },
+    {
+      "name": "總督影城",
+      "phone": "(02)2741-5991",
+      "address": "台北市松山區長安東路二段219號5樓之1",
+      "web": "http://www.governor.com.tw/"
+    },
+    {
+      "name": "哈拉影城",
+      "phone": "(02)2632-2693",
+      "address": "台北市內湖區康寧路三段72號 ",
+      "web": "http://www.halarlife.com.tw/cinemas/"
+    },
+    {
+      "name": "台北新光影城",
+      "phone": "(02)2314-6668",
+      "address": "台北市萬華區西寧南路36號4樓、5樓",
+      "web": "http://www.skcinemas.com/"
+    },
+    {
+      "name": "樂聲影城",
+      "phone": "(02)2311-8628",
+      "address": "台北市萬華區武昌街二段85號",
+      "web": "http://www.luxcinema.com.tw"
+    },
+    {
+      "name": "台北日新威秀",
+      "phone": "(02)2331-5256",
+      "address": "台北市萬華區武昌街二段87號",
+      "web": "https://www.vscinemas.com.tw/vsTicketing/ticketing/ticket.aspx"
+    },
+    {
+      "name": "in89豪華數位影城",
+      "phone": "(02)2331-5077",
+      "address": "台北市萬華區武昌街二段89號",
+      "web": "https://www.in89.com.tw/index2.php"
+    },
+    {
+      "name": "真善美戲院",
+      "phone": "(02)2331-2270",
+      "address": "台北市萬華區漢中街116號",
+      "web": "http://wonderful.movie.com.tw/"
+    },
+    {
+      "name": "國賓戲院",
+      "phone": "(02)2361-1222",
+      "address": "台北市萬華區成都路88號",
+      "web": "http://www.ambassador.com.tw/"
+    },
+    {
+      "name": "今日秀泰影城",
+      "phone": "(02)2375-1669",
+      "address": "台北市萬華區峨眉街52號",
+      "web": "http://www.showtimes.com.tw/timetable.asp?sid=2"
+    },
+    {
+      "name": "喜滿客絕色影城",
+      "phone": "(02)2381-1339",
+      "address": "台北市萬華區漢中街52號10、11樓",
+      "web": "http://cmk.today/"
+    },
+    {
+      "name": "光點華山電影館",
+      "phone": "(02)2394-0622",
+      "address": "台北市中正區八德路一段1號",
+      "web": "http://www.spot-hs.org.tw/schedule/schedule_one.html"
+    },
+    {
+      "name": "百老匯數位影城",
+      "phone": "(02)8663-6128",
+      "address": "台北市中正區羅斯福路四段200號3~5樓",
+      "web": "http://www.broadway-cineplex.com.tw"
+    },
+    {
+      "name": "東南亞秀泰影城",
+      "phone": "(02)2367-8999",
+      "address": "台北市中正區羅斯福路四段136巷3號",
+      "web": "https://www.showtimes.com.tw/events?corpId=8"
+    },
+    {
+      "name": "喜滿客絕色影城",
+      "phone": "(02)2381-1339",
+      "address": "台北市萬華區漢中街52號10、11樓",
+      "web": "http://cmk.today/"
+    },
+    {
+      "name": "美麗華大直",
+      "phone": "(02)8502-2208",
+      "address": "台北市中山區敬業三路22號6-9樓",
+      "web": "http://www.miramarcinemas.tw/timetable"
+    },
+    {
+      "name": "華威天母",
+      "phone": "(02)2876-3300",
+      "address": "台北市士林區忠誠路二段202號4樓",
+      "web": "http://www.woviecinemas.com.tw/"
+    },
+    {
+      "name": "欣欣秀泰影城",
+      "phone": "(02)2537-1889",
+      "address": "台北市中山區林森北路247號",
+      "web": "http://www.showtimes.com.tw/timetable.asp?sid=1"
+    },
+    {
+      "name": "國賓長春影城",
+      "phone": "(02)2515-5755,(02)2515-5757",
+      "address": "台北市中山區長春路176號",
+      "web": "http://www.ambassador.com.tw/"
+    },
+    {
+      "name": "美麗新大直皇家影城",
+      "phone": "(02)7718-8588",
+      "address": "台北市中山區北安路780號B2",
+      "web": "https://www.miramarcinemas.com.tw/Booking/Timetable"
+    },
+    {
+      "name": "陽明戲院",
+      "phone": "(02)2881-4636",
+      "address": "台北市士林區文林路113號1樓",
+      "web": ""
+    },
+    {
+      "name": "光點台北電影院",
+      "phone": "(02)2511-7786",
+      "address": "台北市中山區中山北路二段18號",
+      "web": "http://www.spot.org.tw/schedule/schedule_one.html"
+    }
+  ],
+ "New Taipei":[
+ 	{
+      "name": "板橋大遠百威秀影城",
+      "phone": "(02)7738-6608",
+      "address": "新北市板橋區新站路28號10樓",
+      "web": "https://www.vscinemas.com.tw/vsTicketing/ticketing/ticket.aspx"
+    },
+    {
+      "name": "林口三井OUTLET威秀影城",
+      "phone": "(02)2606-8099",
+      "address": "新北市林口區文化三路一段356號3樓",
+      "web": "http://www.vscinemas.com.tw"
+    },
+    {
+      "name": "鴻金寶麻吉影城",
+      "phone": "(02)2207-0222",
+      "address": "新北市新莊區民安路188巷5號",
+      "web": "http://machicinema.wordpress.com/"
+    },
+    {
+      "name": "板橋秀泰影城",
+      "phone": "(02)2272-0639",
+      "address": "新北市板橋區縣民大道二段3號2-4樓",
+      "web": "http://www.showtimes.com.tw/timetable.asp?sid=3"
+    },
+    {
+      "name": "三重天台戲院",
+      "phone": "(02)2978-7700",
+      "address": "新北市三重區重新路二段78號4樓",
+      "web": "http://www.t-movies.com.tw/"
+    },
+    {
+      "name": "國賓林口昕境廣場",
+      "phone": "(02)2608-0011",
+      "address": "新北市林口區文化三路一段402巷2號4F",
+      "web": "http://www.ambassador.com.tw/"
+    },
+    {
+      "name": "國賓環球影城",
+      "phone": "(02)2226-8088",
+      "address": "新北市中和區中山路三段122號4樓",
+      "web": "http://www.ambassador.com.tw/"
+    },
+    {
+      "name": "國賓新莊晶冠廣場影城",
+      "phone": "02-8521-6517",
+      "address": "新北市新莊區五工路66號3、4F（晶冠廣場）",
+      "web": "http://www.ambassador.com.tw/index.aspx"
+    },
+    {
+      "name": "樹林秀泰影城",
+      "phone": "(02)-2686-8769",
+      "address": "新北市樹林區樹新路40-6號",
+      "web": "https://www.showtimes.com.tw/events?corpId=54"
+    },
+    {
+      "name": "土城秀泰影城",
+      "phone": "(02)-2260-3398",
+      "address": "新北市土城區學府路二段210號",
+      "web": "https://www.showtimes.com.tw/events?corpId=55"
+    },
+    {
+      "name": "美麗新淡海影城",
+      "phone": "02-77050899",
+      "address": "新北市淡水區義山路2段303號2-4樓",
+      "web": "https://www.miramarcinemas.com.tw/Booking/Timetable"
+    },
+    {
+      "name": "永和喜樂時代影城",
+      "phone": "(02)8231-6685",
+      "address": "新北市永和區中山路一段238號4F",
+      "web": "https://www.facebook.com/1979105555492004/"
+    },
+    {
+      "name": "府中15",
+      "phone": "(02)2511-7786",
+      "address": "新北市板橋區府中路15號B1 ",
+      "web": "http://web.fuzhong15.ntpc.gov.tw/films/schedule.aspx?all=1"
+    }
+ ]
+}
