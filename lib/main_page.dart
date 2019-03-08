@@ -51,43 +51,6 @@ class _MainPageState extends State<MainPage>
           ),
         ],
       ),
-
-//      body: TabBarView(
-//        controller: _tabController,
-//        physics: const NeverScrollableScrollPhysics(),
-//        children: [
-//          ///todo 實作三個content widget
-//          HomePage(),
-//          Center(child: Text("page2", style: TextStyle(color: Colors.white))),
-//          Center(child: Text("page3", style: TextStyle(color: Colors.white)))
-//        ],
-//      ),
-//
-//      bottomNavigationBar: Theme(
-//        data: Theme.of(context).copyWith(canvasColor: Colors.black54),
-//        child: BottomNavigationBar(
-//          items: [
-//            BottomNavigationBarItem(
-//              title: Text(tabTitles[0]),
-//              icon: const Icon(Icons.local_movies),
-//              backgroundColor: Theme.of(context).primaryColor,
-//            ),
-//            BottomNavigationBarItem(
-//              title: Text(tabTitles[1]),
-//              icon: const Icon(Icons.search),
-//              backgroundColor: Theme.of(context).primaryColor,
-//            ),
-//            BottomNavigationBarItem(
-//              title: Text(tabTitles[2]),
-//              icon: const Icon(Icons.store_mall_directory),
-//              backgroundColor: Theme.of(context).primaryColor,
-//            ),
-//          ],
-//          currentIndex: _selectedTab,
-//          onTap: _tabSelected,
-//          fixedColor: Colors.amber,
-//        ),
-//      ),
     );
 
     return Stack(

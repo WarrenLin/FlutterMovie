@@ -97,7 +97,10 @@ class _HomePageState extends State<HomePage> {
     return GridView.builder(
         itemCount: _alMovie.length,
         gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 2 / 3,
+        ),
         controller: _scrollController,
         itemBuilder: (BuildContext context, int index) {
           Movie movie = _alMovie[index];
