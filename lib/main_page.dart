@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/assets.dart';
+import 'package:flutter_movie_app/home/home_page.dart';
 import 'package:flutter_movie_app/view/theater_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -71,14 +72,18 @@ class _MainPageState extends State<MainPage>
 
   Widget _buildBodyContent() {
     return Positioned.fill(
-      child: TabBarView(
-        controller: _tabController,
-        children: [
-          ///todo 實作三個content widget
-          Center(child: Text("page1", style: TextStyle(color: Colors.white))),
-          Center(child: Text("page2", style: TextStyle(color: Colors.white))),
-          TheaterPage()
-        ],
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 40.0),
+        child: TabBarView(
+          controller: _tabController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            ///todo 實作三個content widget
+            HomePage(),
+            Center(child: Text("page2", style: TextStyle(color: Colors.white))),
+            TheaterPage()
+          ],
+        ),
       ),
     );
   }
