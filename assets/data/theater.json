@@ -1,5 +1,5 @@
 {
-  "Taipei": [
+  "台北": [
     {
       "name": "台北信義威秀",
       "phone": "(02)8780-5566",
@@ -33,7 +33,7 @@
     {
       "name": "喜樂時代影城",
       "phone": "(02)2788-8185",
-      "address": "台北市南港區忠孝東路7段299號11、12、13、14樓",
+      "address": "台北市南港區忠孝東路7段299號11、12、13樓",
       "web": "http://www.centuryasia.com.tw/default.aspx"
     },
     {
@@ -169,7 +169,7 @@
       "web": "http://www.spot.org.tw/schedule/schedule_one.html"
     }
   ],
- "New Taipei":[
+ "新北市":[
  	{
       "name": "板橋大遠百威秀影城",
       "phone": "(02)7738-6608",

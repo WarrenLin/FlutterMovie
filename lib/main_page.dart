@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/assets.dart';
+import 'package:flutter_movie_app/view/theater_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -76,7 +77,7 @@ class _MainPageState extends State<MainPage>
           ///todo 實作三個content widget
           Center(child: Text("page1", style: TextStyle(color: Colors.white))),
           Center(child: Text("page2", style: TextStyle(color: Colors.white))),
-          Center(child: Text("page3", style: TextStyle(color: Colors.white)))
+          TheaterPage()
         ],
       ),
     );
