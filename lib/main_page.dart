@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/assets.dart';
+import 'package:flutter_movie_app/home/home_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -50,6 +51,43 @@ class _MainPageState extends State<MainPage>
           ),
         ],
       ),
+
+//      body: TabBarView(
+//        controller: _tabController,
+//        physics: const NeverScrollableScrollPhysics(),
+//        children: [
+//          ///todo 實作三個content widget
+//          HomePage(),
+//          Center(child: Text("page2", style: TextStyle(color: Colors.white))),
+//          Center(child: Text("page3", style: TextStyle(color: Colors.white)))
+//        ],
+//      ),
+//
+//      bottomNavigationBar: Theme(
+//        data: Theme.of(context).copyWith(canvasColor: Colors.black54),
+//        child: BottomNavigationBar(
+//          items: [
+//            BottomNavigationBarItem(
+//              title: Text(tabTitles[0]),
+//              icon: const Icon(Icons.local_movies),
+//              backgroundColor: Theme.of(context).primaryColor,
+//            ),
+//            BottomNavigationBarItem(
+//              title: Text(tabTitles[1]),
+//              icon: const Icon(Icons.search),
+//              backgroundColor: Theme.of(context).primaryColor,
+//            ),
+//            BottomNavigationBarItem(
+//              title: Text(tabTitles[2]),
+//              icon: const Icon(Icons.store_mall_directory),
+//              backgroundColor: Theme.of(context).primaryColor,
+//            ),
+//          ],
+//          currentIndex: _selectedTab,
+//          onTap: _tabSelected,
+//          fixedColor: Colors.amber,
+//        ),
+//      ),
     );
 
     return Stack(
@@ -70,14 +108,18 @@ class _MainPageState extends State<MainPage>
 
   Widget _buildBodyContent() {
     return Positioned.fill(
-      child: TabBarView(
-        controller: _tabController,
-        children: [
-          ///todo 實作三個content widget
-          Center(child: Text("page1", style: TextStyle(color: Colors.white))),
-          Center(child: Text("page2", style: TextStyle(color: Colors.white))),
-          Center(child: Text("page3", style: TextStyle(color: Colors.white)))
-        ],
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 40.0),
+        child: TabBarView(
+          controller: _tabController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            ///todo 實作三個content widget
+            HomePage(),
+            Center(child: Text("page2", style: TextStyle(color: Colors.white))),
+            Center(child: Text("page3", style: TextStyle(color: Colors.white)))
+          ],
+        ),
       ),
     );
   }

@@ -5,10 +5,10 @@ import 'package:flutter_movie_app/repository/douban_api.dart' as api;
 
 void main() async {
   //demo
-  api.DoubanAPI.internal().getInTheaters(startIndex: 0)
-      .then((Movies movies){
-    print(movies.toString());
-  });
+//  api.DoubanAPI.internal().getInTheaters(startIndex: 0)
+//      .then((Movies movies){
+//    print(movies.toString());
+//  });
 
   runApp(MyApp());
 }
