@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie_app/assets.dart';
 import 'package:flutter_movie_app/model/movie.dart';
 
 class HomeCell extends StatelessWidget {

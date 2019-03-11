@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie_app/home/home_cell.dart';
+import 'package:flutter_movie_app/view/page/detail_page.dart';
+import 'package:flutter_movie_app/view/widgets/home_cell.dart';
 import 'package:flutter_movie_app/model/movie.dart';
 import 'package:flutter_movie_app/model/movies.dart';
 import 'package:flutter_movie_app/repository/douban_api.dart' as api;
@@ -96,8 +97,7 @@ class _HomePageState extends State<HomePage> {
     print("_createMovieGridView");
     return GridView.builder(
         itemCount: _alMovie.length,
-        gridDelegate:
-        SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 2 / 3,
         ),
@@ -106,7 +106,14 @@ class _HomePageState extends State<HomePage> {
           Movie movie = _alMovie[index];
           return GestureDetector(
             child: HomeCell(movie),
-            onTap: () => print("click:" + movie.title),
+            onTap: () {
+              print("click:" + movie.title);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailPage(id: movie.id)),
+              );
+            },
           );
         });
   }
