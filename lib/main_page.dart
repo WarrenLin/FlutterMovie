@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/assets.dart';
 import 'package:flutter_movie_app/view/page/home_page.dart';
-import 'package:flutter_movie_app/view/theater_page.dart';
+import 'package:flutter_movie_app/view/page/theater_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
