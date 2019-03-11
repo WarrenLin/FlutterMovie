@@ -72,6 +72,7 @@ class _ListWidget extends State<MovieInTitles>
       },
       children:
       widget.theaters.map((theater) => getSubTitleWidget(theater)).toList(),
+
     );
   }
 
@@ -111,7 +112,7 @@ class _ListWidget extends State<MovieInTitles>
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(theater.address,
-                          style: TextStyle(color: Colors.white70)))
+                          style: TextStyle(color: Colors.white70))),
                 ],
               ),
             ),
