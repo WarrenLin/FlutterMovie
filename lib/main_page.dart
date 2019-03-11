@@ -41,7 +41,10 @@ class _MainPageState extends State<MainPage>
             style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
         backgroundColor: Color(0xFF152451),
-        leading: Image.asset(ImageAssets.app_logo_icon), //app_logo_icon
+        leading: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Image.asset(ImageAssets.app_logo_icon),
+        ), //app_logo_icon
       ),
       body: Stack(
         children: [

@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_movie_app/model/movie_info.dart';
 import 'package:flutter_movie_app/model/movies.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter_movie_app/model/theater.dart';
 
 class DoubanAPI {
   static final DoubanAPI _internal = DoubanAPI.internal();

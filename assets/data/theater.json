@@ -248,5 +248,95 @@
       "address": "新北市板橋區府中路15號B1 ",
       "web": "http://web.fuzhong15.ntpc.gov.tw/films/schedule.aspx?all=1"
     }
- ]
+ ],
+  "基隆":[
+    {
+      "name": "基隆秀泰影城",
+      "phone": "(02)2421-2388",
+      "address": "基隆市中正區信一路177號",
+      "web": "http://www.showtimes.com.tw/timetable.asp?sid=4"
+    }
+  ],
+  "桃園":[
+    {
+      "name": "美麗新台茂影城",
+      "phone": "(03)311-3123",
+      "address": "桃園市蘆竹鄉南崁路一段112號7樓",
+      "web": "https://www.miramarcinemas.com.tw/Booking/Timetable"
+    },
+    {
+      "name": "星橋國際影城",
+      "phone": "(03)468-0100",
+      "address": "桃園市中壢區中園路二段501號5樓",
+      "web": "http://www.sbc-cinemas.com.tw/movie.php"
+    },
+    {
+      "name": "威尼斯影城",
+      "phone": "(03)280-5018",
+      "address": "桃園市中壢區九和一街48號3樓之2",
+      "web": "http://www.venice-cinemas.com.tw/showtime.php"
+    },
+    {
+      "name": "國賓桃園八德",
+      "phone": "03-218-2898",
+      "address": "桃園市八德區介壽路一段728號3F",
+      "web": "http://www.ambassador.com.tw/aboutus_a12.html"
+    },
+    {
+      "name": "桃園統領威秀影城",
+      "phone": "(03)333-3232",
+      "address": "桃園市桃園區中正路61號9樓",
+      "web": "http://web.vscinemas.com.tw/theater/detail.aspx?id=20"
+    },
+    {
+      "name": "in89統領影城",
+      "phone": "(03)272-7738",
+      "address": "桃園市桃園區中正路56號3-5樓",
+      "web": "https://www.in89.com.tw/tonglin/index2.php"
+    },
+    {
+      "name": "中源戲院",
+      "phone": "(03)456-2414",
+      "address": "桃園市中壢區日新路97號3樓",
+      "web": ""
+    },
+    {
+      "name": "民和戲院",
+      "phone": "(03)377-7437",
+      "address": "桃園市八德區廣福路80號",
+      "web": "https://www.facebook.com/pages/%E6%B0%91%E5%92%8C%E6%88%B2%E9%99%A2/152413354841127"
+    }
+  ],
+  "新竹":[
+    {
+      "name": "新竹大遠百威秀影城",
+      "phone": "(03)524-1166",
+      "address": "新竹市東區西大路323號8樓",
+      "web": "http://web.vscinemas.com.tw/theater/detail.aspx?id=7"
+    },
+    {
+      "name": "新竹巨城威秀影城",
+      "phone": "(03)534-6999",
+      "address": "新竹市東區民權路176號4樓之3",
+      "web": "http://web.vscinemas.com.tw/theater/detail.aspx?id=9"
+    },
+    {
+      "name": "新竹國際影城",
+      "phone": "(03)522-2134",
+      "address": "新竹市東區文昌街39號",
+      "web": "http://star.tnn.tw/time.html"
+    },
+    {
+      "name": "國際影城中興館",
+      "phone": "(03)523-7077",
+      "address": "新竹市東區林森路32號",
+      "web": "http://star.tnn.tw/time.html"
+    },
+    {
+      "name": "新復珍戲院",
+      "phone": "(03)524-8285",
+      "address": "新竹市北區北門街6號(城隍廟旁) ",
+      "web": "https://zh-tw.facebook.com/pages/%E6%96%B0%E7%AB%B9%E6%96%B0%E5%BE%A9%E7%8F%8D%E6%88%B2%E9%99%A2/268130616548249"
+    }
+  ]
 }
