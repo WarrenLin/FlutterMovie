@@ -38,8 +38,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/1x1_transparent.png
-    - assets/images/powered_by_tmdb.png
-    - assets/images/background_image.jpg
-    - assets/images/logo.png
+#    - assets/images/1x1_transparent.png
+#    - assets/images/powered_by_tmdb.png
+#    - assets/images/background_image.jpg
+#    - assets/images/logo.png
+    - assets/images/
     - assets/data/theater.json

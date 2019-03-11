@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_movie_app/assets.dart';
 import 'package:flutter_movie_app/model/movie_info.dart';
 import 'package:flutter_movie_app/repository/douban_api.dart' as api;
+import 'package:flutter_movie_app/view/cast_view.dart';
+import 'package:flutter_movie_app/view/widgets/movie_intro_cell.dart';
 
 class DetailPage extends StatefulWidget {
   final String id;
+  final String title;
 
-  DetailPage({@required this.id});
+  DetailPage({@required this.id, @required this.title});
 
   @override
   _DetailPageState createState() => _DetailPageState();
@@ -24,20 +28,79 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: _movieInfo == null
+    final backgroundImage = Positioned.fill(
+        child: Image.asset(
+      ImageAssets.backgroundImage,
+      fit: BoxFit.cover,
+    ));
+    final content = Scaffold(
+        appBar: createAppBar(),
+        body: _movieInfo == null
             ? Center(child: CircularProgressIndicator())
-            : createBody(),
+            : _createBody());
+
+    return Stack(children: <Widget>[backgroundImage, content]);
+  }
+
+  AppBar createAppBar() {
+    final backBtn = GestureDetector(
+      child: Icon(Icons.arrow_back_ios),
+      onTap: () => Navigator.pop(context),
+    );
+
+    return AppBar(
+        leading: backBtn,
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Colors.white),
+          maxLines: 1,
+        ),
+        backgroundColor: Color(0xFF152451));
+  }
+
+  Widget _createBody() {
+    return Container(
+      decoration: BoxDecoration(color: Colors.black26),
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              child: MovieIntroCell(
+                imgUrl: _movieInfo.images.large,
+                title: _getTitle(),
+                sorts: _movieInfo.genres.toString(),
+                avgRatings: _movieInfo.rating.average.toString(),
+                alDirectors: _movieInfo.directors,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                _movieInfo.summary + _movieInfo.summary + _movieInfo.summary,
+                style: TextStyle(
+                    color: Colors.white70, fontSize: 16.0, letterSpacing: 2.0),
+              ),
+            ),
+            CastView(_movieInfo.casts),
+          ],
+        ),
       ),
     );
   }
 
-  Widget createBody() {
-//    return Column(
-//      children: <Widget>[Text("title:${_movieInfo.title}")],
-//    );
-    return Center(child: Text("title:${_movieInfo.title}"));
+  String _getTitle() {
+    StringBuffer sb = StringBuffer();
+    String title = _movieInfo.title;
+    String originalTitle = _movieInfo.original_title;
+    if (title != null && title.isNotEmpty) {
+      sb.write(title);
+    }
+    if (originalTitle != null &&
+        originalTitle.isNotEmpty &&
+        title != originalTitle) {
+      sb.write("($originalTitle)");
+    }
+    return sb.toString();
   }
 }
