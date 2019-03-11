@@ -67,12 +67,13 @@ class _DetailPageState extends State<DetailPage> {
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
               child: MovieIntroCell(
-                imgUrl: _movieInfo.images.large,
-                title: _getTitle(),
-                sorts: _movieInfo.genres.toString(),
-                avgRatings: _movieInfo.rating.average.toString(),
-                alDirectors: _movieInfo.directors,
-              ),
+                  imgUrl: _movieInfo.images.large,
+                  title: _getTitle(),
+                  avgRatings: _movieInfo.rating.average.toString(),
+                  alDirectors: _movieInfo.directors,
+                  sorts: _movieInfo.genres == null || _movieInfo.genres.isEmpty
+                      ? ""
+                      : _movieInfo.genres.toString()),
             ),
             Padding(
               padding: EdgeInsets.all(8.0),

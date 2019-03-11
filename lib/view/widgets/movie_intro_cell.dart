@@ -22,14 +22,19 @@ class MovieIntroCell extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Expanded(flex: 4, child: Image.network(imgUrl)),
+          Expanded(flex: 4, child: Image.network(imgUrl ?? "")),
           Expanded(
             flex: 6,
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: contentWidgets(),
+              child: Stack(
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: contentWidgets(),
+                  ),
+                  ratingWidget()
+                ],
               ),
             ),
           )
@@ -49,6 +54,7 @@ class MovieIntroCell extends StatelessWidget {
         style: TextStyle(fontSize: 22.0, color: Colors.white),
       ),
     );
+    alWidget.add(tvTitle);
 
     List<Widget> columnWidgets = [];
 
@@ -81,26 +87,33 @@ class MovieIntroCell extends StatelessWidget {
       columnWidgets.add(tvDirectors);
     }
 
-    final column = Column(children: columnWidgets);
-
-    //評分
-    final tvAvgRatings = Align(
-      alignment: Alignment.bottomRight,
-      child: Padding(
-        padding: const EdgeInsets.only(right: 8.0),
-        child: Text(
-          avgRatings,
-          style: TextStyle(
-              fontSize: 26.0,
-              color: Colors.pinkAccent,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-
-    alWidget..add(tvTitle)..add(column)..add(tvAvgRatings);
+    alWidget.add(Padding(
+      padding: const EdgeInsets.only(top: 4.0),
+      child: Column(children: columnWidgets),
+    ));
 
     return alWidget;
+  }
+
+  Widget ratingWidget() {
+    //評分
+    if (avgRatings != "0") {
+      final tvAvgRatings = Align(
+        alignment: Alignment.bottomRight,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: Text(
+            avgRatings,
+            style: TextStyle(
+                fontSize: 26.0,
+                color: Colors.pinkAccent,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
+      return tvAvgRatings;
+    }
+    return Container();
   }
 }

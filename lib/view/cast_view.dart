@@ -52,7 +52,7 @@ class AvatarWidget extends StatelessWidget {
           children: <Widget>[
             CircleAvatar(
                 radius: 35.0,
-                backgroundImage: NetworkImage(cast.avatars.large),
+                backgroundImage: NetworkImage(cast.avatars.large ?? ""),
                 backgroundColor: Colors.transparent),
             Padding(
               padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),

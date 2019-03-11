@@ -3,8 +3,8 @@ import 'package:flutter_movie_app/model/movie.dart';
 
 class HomeCell extends StatelessWidget {
   Movie _movie;
-
-  HomeCell(this._movie);
+  VoidCallback _callback;
+  HomeCell(this._movie,this._callback);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,14 @@ class HomeCell extends StatelessWidget {
         fit: StackFit.expand,
         children: <Widget>[
           Image.network(_movie.images.large,fit:BoxFit.fill),
-          _TextualInfo(_movie)
+          _TextualInfo(_movie),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: _callback,
+              child: Container(),
+            ),
+          ),
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/assets.dart';
 import 'package:flutter_movie_app/view/page/home_page.dart';
+import 'package:flutter_movie_app/view/page/search_page.dart';
 import 'package:flutter_movie_app/view/page/theater_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -81,9 +82,8 @@ class _MainPageState extends State<MainPage>
           controller: _tabController,
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            ///todo 實作三個content widget
             HomePage(),
-            Center(child: Text("page2", style: TextStyle(color: Colors.white))),
+            SearchPage(),
             TheaterPage()
           ],
         ),

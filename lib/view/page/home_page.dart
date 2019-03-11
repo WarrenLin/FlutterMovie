@@ -104,20 +104,17 @@ class _HomePageState extends State<HomePage> {
         controller: _scrollController,
         itemBuilder: (BuildContext context, int index) {
           Movie movie = _alMovie[index];
-          return GestureDetector(
-            child: HomeCell(movie),
-            onTap: () {
-              print("click:" + movie.title);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => DetailPage(
-                          id: movie.id,
-                          title: movie.title,
-                        )),
-              );
-            },
-          );
+          return HomeCell(movie, () {
+            print("click:" + movie.title);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailPage(
+                        id: movie.id,
+                        title: movie.title,
+                      )),
+            );
+          });
         });
   }
 }
