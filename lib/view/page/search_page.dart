@@ -57,25 +57,27 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget createEditText() {
     final widget = Container(
-        child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-              onFieldSubmitted: (keyword) => searchBtnClick(keyword),
-              decoration: InputDecoration(
-                  labelText: "請輸入關鍵字",
-                  labelStyle: TextStyle(color: Colors.amberAccent),
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: Colors.grey,
-                        width:
-                            0.0), // width: 0.0 produces a thin "hairline" border
-                  )),
-              style: TextStyle(fontFamily: "Poppins", color: Colors.white),
-            )));
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: TextFormField(
+          controller: _textEditingController,
+          onFieldSubmitted: (keyword) => searchBtnClick(keyword),
+          decoration: InputDecoration(
+              labelText: "請輸入關鍵字",
+              labelStyle: TextStyle(color: Colors.amberAccent),
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Colors.grey,
+                    width: 0.0), // width: 0.0 produces a thin "hairline" border
+              )),
+          style: TextStyle(fontFamily: "Poppins", color: Colors.white),
+        ),
+      ),
+    );
 
     return widget;
   }
@@ -87,7 +89,10 @@ class _SearchPageState extends State<SearchPage> {
 
     /// ListView
     if (_status.movieList.isNotEmpty) {
-      ListView lv = _createListView();
+      Widget lv = Padding(
+        padding: EdgeInsets.only(left: 10.0),
+        child: _createListView(),
+      );
       if (_status.isLoading) {
         return Expanded(
           child: Stack(children: <Widget>[
@@ -106,7 +111,11 @@ class _SearchPageState extends State<SearchPage> {
 
     return Text(
       "找不到'$searchText'相關資訊",
-      style: TextStyle(color: Colors.white),
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 22.0,
+      ),
     );
   }
 
