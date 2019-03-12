@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/view/page/detail_page.dart';
+import 'package:flutter_movie_app/view/page_status.dart';
 import 'package:flutter_movie_app/view/widgets/home_cell.dart';
 import 'package:flutter_movie_app/model/movie.dart';
 import 'package:flutter_movie_app/model/movies.dart';
@@ -14,10 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _movieIndex = 0;
-  int _totalCount = 0;
-  bool _isLoading = true;
-  List<Movie> _alMovie = [];
+  PageStatus _status;
   ScrollController _scrollController;
 
   _listener() {
@@ -25,20 +23,46 @@ class _HomePageState extends State<HomePage> {
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
       print("reach the bottom");
-      if (_movieIndex < _totalCount)
-        setState(() {
-          _isLoading = true;
-          _movieIndex = _alMovie.length;
-          print("load data start from $_movieIndex");
-        });
+
+      ///get more data
+      if (_status.movieList.length < _status.totalCount) {
+        _status.itemIndex = _status.movieList.length;
+        _getMovieByApi();
+        setLoading(true);
+      }
     }
+  }
+
+  void _getMovieByApi() {
+    api.DoubanAPI.internal()
+        .getInTheaters(startIndex: _status.itemIndex)
+        .then((Movies movies) {
+      _status.totalCount = movies.total;
+      movies.subjects.forEach((Movie movie) => _status.movieList.add(movie));
+      setLoading(false);
+    }).catchError((onError) {
+      print("_getMovieByApi xxxx:$onError");
+      Scaffold.of(context).showSnackBar(new SnackBar(
+        duration: Duration(minutes: 1),
+        content: new Text("發生錯誤"),
+        action: new SnackBarAction(
+          label: "重試",
+          onPressed: () => _getMovieByApi(),
+        ),
+      ));
+    });
+  }
+
+  void setLoading(bool isLoading) {
+    setState(() => _status.isLoading = isLoading);
   }
 
   @override
   void initState() {
-//    moviesFuture = api.DoubanAPI.internal().getInTheaters(startIndex: 0);
+    _status = PageStatus();
     _scrollController = ScrollController();
     _scrollController.addListener(_listener);
+    _getMovieByApi();
     super.initState();
   }
 
@@ -46,42 +70,24 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     super.dispose();
     _scrollController.removeListener(_listener);
-    print("dispose!!!!");
+    print("HomePage dispose!!!!");
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Movies>(
-        future: api.DoubanAPI.internal().getInTheaters(startIndex: _movieIndex),
-        builder: (context, AsyncSnapshot<Movies> snapshot) {
-          if (snapshot.hasError && _totalCount == 0) {
-            print("error:" + snapshot.error.toString());
-            return Center(
-                child: Text(defaultErrorMessage,
-                    style: TextStyle(color: Colors.white)));
-          }
+    return _initView();
+  }
 
-          if (snapshot.hasData) {
-            Movies movies = snapshot.data;
-            if (movies.start == _movieIndex) {
-              print("get movie" + movies.subjects.toString());
-              _totalCount = snapshot.data.total;
-              movies.subjects.forEach((Movie movie) => _alMovie.add(movie));
-              _isLoading = false;
-            }
-          }
-
-          if (_totalCount == 0) {
-            return Center(child: CircularProgressIndicator());
-          }
-
-          return _createBody();
-        });
+  Widget _initView() {
+    if (_status.movieList.isNotEmpty) {
+      return _createBody();
+    }
+    return Center(child: CircularProgressIndicator());
   }
 
   Widget _createBody() {
     List<Widget> alWidget = []..add(_createMovieGridView());
-    if (_isLoading) {
+    if (_status.isLoading) {
       alWidget.add(Padding(
         padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 12.0),
         child: Align(
@@ -96,14 +102,14 @@ class _HomePageState extends State<HomePage> {
   Widget _createMovieGridView() {
     print("_createMovieGridView");
     return GridView.builder(
-        itemCount: _alMovie.length,
+        itemCount: _status.movieList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 2 / 3,
         ),
         controller: _scrollController,
         itemBuilder: (BuildContext context, int index) {
-          Movie movie = _alMovie[index];
+          Movie movie = _status.movieList[index];
           return HomeCell(movie, () {
             print("click:" + movie.title);
             Navigator.push(

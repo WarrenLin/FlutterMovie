@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/model/movie.dart';
 import 'package:flutter_movie_app/model/movies.dart';
 import 'package:flutter_movie_app/view/page/detail_page.dart';
+import 'package:flutter_movie_app/view/page_status.dart';
+import 'package:flutter_movie_app/view/widgets/loading_footer.dart';
 import 'package:flutter_movie_app/view/widgets/movie_intro_cell.dart';
 import 'package:flutter_movie_app/repository/douban_api.dart' as api;
 
@@ -12,14 +15,37 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   TextEditingController _textEditingController;
-  List<Movie> alSearchMovie = [];
-  bool _isSearching = false;
-  int _searchIndex = 0;
+  ScrollController _scrollController;
+  SearchStatus _status;
+
+  _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      print("reach the bottom");
+      if (_status.movieList.length < _status.totalCount)
+        setState(() {
+          _status.isLoading = true;
+          _status.itemIndex = _status.movieList.length;
+          _searchMovie(_status.searchKeyWord);
+        });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    _status = SearchStatus();
     _textEditingController = TextEditingController();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    super.dispose();
+    print("SearchPage dispose!!!!");
   }
 
   @override
@@ -30,47 +56,47 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget createEditText() {
-    final row = Row(
-      children: <Widget>[
-        Expanded(
-          flex: 8,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              style: TextStyle(color: Colors.white),
-              controller: _textEditingController,
-              onSubmitted: (s) => searchBtnClick(),
+    final widget = Container(
+        child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextFormField(
+              onFieldSubmitted: (keyword) => searchBtnClick(keyword),
               decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: '請輸入關鍵字',
-                  hintStyle: TextStyle(color: Colors.white54)),
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.orange,
-                size: 30.0,
-              ),
-              onPressed: () => searchBtnClick()),
-        )
-      ],
-    );
+                  labelText: "請輸入關鍵字",
+                  labelStyle: TextStyle(color: Colors.amberAccent),
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(
+                        color: Colors.grey,
+                        width:
+                            0.0), // width: 0.0 produces a thin "hairline" border
+                  )),
+              style: TextStyle(fontFamily: "Poppins", color: Colors.white),
+            )));
 
-    return row;
+    return widget;
   }
 
   Widget createContent() {
-    if (_isSearching) {
-      return Center(child: CircularProgressIndicator());
+    if (_status.isSearching) {
+      return CircularProgressIndicator();
     }
 
-    if (alSearchMovie.isNotEmpty) {
+    /// ListView
+    if (_status.movieList.isNotEmpty) {
       ListView lv = _createListView();
-      return Expanded(child: lv);
+      if (_status.isLoading) {
+        return Expanded(
+          child: Stack(children: <Widget>[
+            lv,
+            LoadingFooter(),
+          ]),
+        );
+      }
+      return Expanded(child: Stack(children: [lv]));
     }
 
     String searchText = _textEditingController.text;
@@ -78,22 +104,23 @@ class _SearchPageState extends State<SearchPage> {
       return Center();
     }
 
-    return Expanded(
-        child: Text(
+    return Text(
       "找不到'$searchText'相關資訊",
       style: TextStyle(color: Colors.white),
-    ));
+    );
   }
 
   void _searchMovie(String keyword) {
     print("search : $keyword");
+    _status.searchKeyWord = keyword;
     api.DoubanAPI.internal()
-        .search(keyword: keyword, startIndex: _searchIndex)
+        .search(keyword: keyword, startIndex: _status.itemIndex)
         .then((Movies movie) {
       /// handle data
       List<Movie> subjects = movie.subjects;
       if (subjects != null && subjects.isNotEmpty) {
-        subjects.forEach((Movie m) => alSearchMovie.add(m));
+        _status.totalCount = movie.total;
+        subjects.forEach((Movie m) => _status.movieList.add(m));
       }
       setSearchStatus(false);
     }).catchError((error) {
@@ -102,15 +129,12 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
-  void setSearchStatus(bool isSearch) {
-    setState(() => _isSearching = isSearch);
-  }
-
   ListView _createListView() {
     return ListView.builder(
-        itemCount: alSearchMovie.length,
+        controller: _scrollController,
+        itemCount: _status.movieList.length,
         itemBuilder: (BuildContext context, int index) {
-          Movie movie = alSearchMovie[index];
+          Movie movie = _status.movieList[index];
           MovieIntroCell cell = MovieIntroCell(
             imgUrl: movie.images.large,
             title: movie.title,
@@ -136,9 +160,16 @@ class _SearchPageState extends State<SearchPage> {
         });
   }
 
-  void searchBtnClick() {
-    alSearchMovie.clear();
+  void searchBtnClick(String keyword) {
+    _status.movieList.clear();
     setSearchStatus(true);
-    _searchMovie(_textEditingController.text);
+    _searchMovie(keyword);
+  }
+
+  void setSearchStatus(bool isSearch) {
+    setState(() {
+      _status.isSearching = isSearch;
+      _status.isLoading = isSearch;
+    });
   }
 }
