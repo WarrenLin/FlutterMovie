@@ -180,7 +180,10 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ));
     } else {
+      ///清空資料&還原index預設值
       _status.movieList.clear();
+      _status.itemIndex = 0;
+
       setSearchStatus(true);
       _searchMovie(keyword);
     }

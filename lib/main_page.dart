@@ -10,7 +10,7 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-const tabTitles = ["首頁", "搜尋", "戲院"];
+const tabTitles = ["熱映中", "搜尋", "戲院"];
 
 class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
@@ -58,11 +58,18 @@ class _MainPageState extends State<MainPage>
       ),
     );
 
+    ///touch任何一處關閉鍵盤
+    final gestureWrapper = GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
+      child: content,
+    );
+
     return Stack(
       fit: StackFit.expand,
       children: [
         backgroundImage,
-        content,
+        gestureWrapper,
       ],
     );
   }
