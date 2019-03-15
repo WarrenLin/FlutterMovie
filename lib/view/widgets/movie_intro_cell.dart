@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/model/movie.dart';
 
 class MovieIntroCell extends StatelessWidget {
-  String imgUrl;
-  String title;
-  String sorts;
-  String avgRatings;
-  List<Directors> alDirectors;
+  final String imgUrl;
+  final String title;
+  final String sorts;
+  final String avgRatings;
+  final List<Directors> alDirectors;
 
   MovieIntroCell({
     @required this.imgUrl,

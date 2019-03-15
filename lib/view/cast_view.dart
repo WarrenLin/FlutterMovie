@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/model/movie.dart';
 
 class CastView extends StatelessWidget {
-  List<Casts> castImages;
+  final List<Casts> castImages;
 
   CastView(this.castImages);
 
@@ -39,7 +39,7 @@ class CastView extends StatelessWidget {
 }
 
 class AvatarWidget extends StatelessWidget {
-  Casts cast;
+  final Casts cast;
 
   AvatarWidget(this.cast);
 

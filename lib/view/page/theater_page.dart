@@ -3,10 +3,19 @@ import 'package:flutter_movie_app/model/theater.dart';
 import 'package:flutter_movie_app/repository/douban_api.dart' as api;
 import 'package:url_launcher/url_launcher.dart';
 
-class TheaterPage extends StatelessWidget {
-  Map<String, dynamic> _theaters = Map();
+class TheaterPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return TheaterState();
+  }
+}
 
-  TheaterPage() {
+class TheaterState extends State<TheaterPage> {
+  Map<String, dynamic> _theaters;
+
+  @override
+  void initState() {
+    super.initState();
     api.DoubanAPI.internal()
         .getTheater()
         .then((Map<String, dynamic> theaters) => _theaters = theaters);
@@ -22,7 +31,7 @@ class TheaterPage extends StatelessWidget {
               return MovieInTitles(key,
                   theaters.map((theater) => Theater.from(theater)).toList());
             },
-            itemCount: _theaters.length));
+            itemCount: _theaters?.length ?? 0));
   }
 }
 
@@ -71,62 +80,65 @@ class _ListWidget extends State<MovieInTitles>
         _changeOpacity(bool);
       },
       children:
-      widget.theaters.map((theater) => getSubTitleWidget(theater)).toList(),
-
+          widget.theaters.map((theater) => getSubTitleWidget(theater)).toList(),
     );
   }
 
   Widget getSubTitleWidget(Theater theater) {
-    print(theater.toString());
     return Container(
+      height: 110.0,
+      color: Colors.black54,
       margin: EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 10.0),
-      child: Ink(
-        height: 110.0,
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.all(Radius.circular(2.0)),
-        ),
-        child: Stack(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                    child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(theater.name,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold))),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                    child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(theater.phone,
-                            style: TextStyle(color: Colors.white70))),
-                  ),
-                  Align(
+//      child: Ink(
+//        height: 110.0,
+//        decoration: BoxDecoration(
+//          color: Colors.black,
+//          borderRadius: BorderRadius.all(Radius.circular(2.0)),
+//        ),
+      child: Stack(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(theater.address,
+                      child: Text(theater.name,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold))),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(theater.phone,
                           style: TextStyle(color: Colors.white70))),
-                ],
-              ),
+                ),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(theater.address,
+                        style: TextStyle(color: Colors.white70))),
+              ],
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                  icon: Icon(Icons.theaters, color: Colors.amber,),
-                  onPressed: () {
-                    launchURL(theater.web);
-                  }),
-            )
-          ],
-        ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+                icon: Icon(
+                  Icons.theaters,
+                  color: Colors.amber,
+                ),
+                onPressed: () {
+                  launchURL(theater.web);
+                }),
+          )
+        ],
       ),
+//      ),
     );
   }
 

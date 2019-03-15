@@ -8,6 +8,8 @@ import 'package:flutter_movie_app/view/widgets/loading_footer.dart';
 import 'package:flutter_movie_app/view/widgets/movie_intro_cell.dart';
 import 'package:flutter_movie_app/repository/douban_api.dart' as api;
 
+const String defaultHint = "請輸入關鍵字";
+
 class SearchPage extends StatefulWidget {
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -63,7 +65,7 @@ class _SearchPageState extends State<SearchPage> {
           controller: _textEditingController,
           onFieldSubmitted: (keyword) => searchBtnClick(keyword),
           decoration: InputDecoration(
-              labelText: "請輸入關鍵字",
+              labelText: defaultHint,
               labelStyle: TextStyle(color: Colors.amberAccent),
               fillColor: Colors.white,
               border: OutlineInputBorder(
@@ -110,7 +112,7 @@ class _SearchPageState extends State<SearchPage> {
     }
 
     return Text(
-      "找不到'$searchText'相關資訊",
+      "找不到 『 $searchText 』 相關資訊 😅",
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.white,
@@ -170,9 +172,18 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void searchBtnClick(String keyword) {
-    _status.movieList.clear();
-    setSearchStatus(true);
-    _searchMovie(keyword);
+    if (keyword.isEmpty) {
+      Scaffold.of(context).showSnackBar(new SnackBar(
+        content: new Text(
+          defaultHint,
+          style: TextStyle(color: Colors.red),
+        ),
+      ));
+    } else {
+      _status.movieList.clear();
+      setSearchStatus(true);
+      _searchMovie(keyword);
+    }
   }
 
   void setSearchStatus(bool isSearch) {

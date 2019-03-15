@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/model/movie.dart';
 
 class HomeCell extends StatelessWidget {
-  Movie _movie;
-  VoidCallback _callback;
+  final Movie _movie;
+  final VoidCallback _callback;
   HomeCell(this._movie,this._callback);
 
   @override
@@ -30,7 +30,7 @@ class HomeCell extends StatelessWidget {
 
 //底下漸層
 class _TextualInfo extends StatelessWidget {
-  Movie _movie;
+  final Movie _movie;
 
   _TextualInfo(this._movie);
 

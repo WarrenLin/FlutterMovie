@@ -77,17 +77,11 @@ class _MainPageState extends State<MainPage>
   Widget _buildBodyContent() {
     return Positioned.fill(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 40.0),
-        child: TabBarView(
-          controller: _tabController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            HomePage(),
-            SearchPage(),
-            TheaterPage()
-          ],
-        ),
-      ),
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 40.0),
+          child: IndexedStack(
+            children: <Widget>[HomePage(), SearchPage(), TheaterPage()],
+            index: _selectedTab,
+          )),
     );
   }
 }

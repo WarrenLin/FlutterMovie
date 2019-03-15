@@ -6,6 +6,7 @@ import 'package:flutter_movie_app/view/widgets/home_cell.dart';
 import 'package:flutter_movie_app/model/movie.dart';
 import 'package:flutter_movie_app/model/movies.dart';
 import 'package:flutter_movie_app/repository/douban_api.dart' as api;
+import 'package:flutter_movie_app/view/widgets/loading_footer.dart';
 
 const String defaultErrorMessage = "網路異常請稍後再試";
 
@@ -75,10 +76,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return _initView();
-  }
-
-  Widget _initView() {
     if (_status.movieList.isNotEmpty) {
       return _createBody();
     }
@@ -88,13 +85,7 @@ class _HomePageState extends State<HomePage> {
   Widget _createBody() {
     List<Widget> alWidget = []..add(_createMovieGridView());
     if (_status.isLoading) {
-      alWidget.add(Padding(
-        padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 12.0),
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: CupertinoActivityIndicator(radius: 6.0),
-        ),
-      ));
+      alWidget.add(LoadingFooter());
     }
     return Stack(children: alWidget);
   }

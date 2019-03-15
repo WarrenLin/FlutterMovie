@@ -28,18 +28,19 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundImage = Positioned.fill(
-        child: Image.asset(
+    final backgroundImage = Image.asset(
       ImageAssets.backgroundImage,
       fit: BoxFit.cover,
-    ));
+    );
     final content = Scaffold(
         appBar: createAppBar(),
         body: _movieInfo == null
             ? Center(child: CircularProgressIndicator())
             : _createBody());
 
-    return Stack(children: <Widget>[backgroundImage, content]);
+    return Stack(
+        fit: StackFit.expand,
+        children: <Widget>[backgroundImage, content]);
   }
 
   AppBar createAppBar() {
@@ -78,7 +79,7 @@ class _DetailPageState extends State<DetailPage> {
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                _movieInfo.summary + _movieInfo.summary + _movieInfo.summary,
+                _movieInfo.summary + _movieInfo.summary,
                 style: TextStyle(
                     color: Colors.white70, fontSize: 16.0, letterSpacing: 2.0),
               ),

@@ -5,8 +5,6 @@ class PageStatus {
   bool isLoading = false;
   int itemIndex = 0;
   int totalCount = 0;
-  Error error;
-  Exception e;
 }
 
 class SearchStatus extends PageStatus {
