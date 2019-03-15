@@ -66,7 +66,7 @@ class _DetailPageState extends State<DetailPage> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
               child: MovieIntroCell(
                   imgUrl: _movieInfo.images.large,
                   title: _getTitle(),

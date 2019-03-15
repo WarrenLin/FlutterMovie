@@ -12,6 +12,10 @@ class CastView extends StatelessWidget {
       color: Colors.white,
       child: Column(
         children: <Widget>[
+          new Container(
+            height: 0.5,
+            color: Colors.black12,
+          ),
           Align(
             alignment: Alignment.centerLeft,
             child: Padding(
