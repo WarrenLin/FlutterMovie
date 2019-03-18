@@ -89,12 +89,6 @@ class _ListWidget extends State<MovieInTitles>
       height: 110.0,
       color: Colors.black54,
       margin: EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 10.0),
-//      child: Ink(
-//        height: 110.0,
-//        decoration: BoxDecoration(
-//          color: Colors.black,
-//          borderRadius: BorderRadius.all(Radius.circular(2.0)),
-//        ),
       child: Stack(
         children: <Widget>[
           Padding(
@@ -138,7 +132,6 @@ class _ListWidget extends State<MovieInTitles>
           )
         ],
       ),
-//      ),
     );
   }
 

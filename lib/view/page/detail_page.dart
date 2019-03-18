@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/assets.dart';
 import 'package:flutter_movie_app/model/movie_info.dart';
 import 'package:flutter_movie_app/repository/douban_api.dart' as api;
-import 'package:flutter_movie_app/view/cast_view.dart';
+import 'package:flutter_movie_app/view/widgets/cast_view.dart';
 import 'package:flutter_movie_app/view/widgets/movie_intro_cell.dart';
 
 class DetailPage extends StatefulWidget {
