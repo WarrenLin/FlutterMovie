@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _getMovieByApi() {
-    api.DoubanAPI.internal()
+    api.DoubanAPI()
         .getInTheaters(startIndex: _status.itemIndex)
         .then((Movies movies) {
       _status.totalCount = movies.total;
@@ -43,10 +43,10 @@ class _HomePageState extends State<HomePage> {
       setLoading(false);
     }).catchError((onError) {
       print("_getMovieByApi xxxx:$onError");
-      Scaffold.of(context).showSnackBar(new SnackBar(
+      Scaffold.of(context).showSnackBar(SnackBar(
         duration: Duration(minutes: 1),
-        content: new Text("發生錯誤"),
-        action: new SnackBarAction(
+        content: Text("發生錯誤"),
+        action: SnackBarAction(
           label: "重試",
           onPressed: () => _getMovieByApi(),
         ),

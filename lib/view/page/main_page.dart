@@ -12,21 +12,12 @@ class MainPage extends StatefulWidget {
 
 const tabTitles = ["熱映中", "搜尋", "戲院"];
 
-class _MainPageState extends State<MainPage>
-    with SingleTickerProviderStateMixin {
-  TabController _tabController;
+class _MainPageState extends State<MainPage> {
   int _selectedTab = 0;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _tabController.dispose();
   }
 
   @override
@@ -61,7 +52,7 @@ class _MainPageState extends State<MainPage>
     ///touch任何一處關閉鍵盤
     final gestureWrapper = GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: content,
     );
 
@@ -75,10 +66,7 @@ class _MainPageState extends State<MainPage>
   }
 
   void _tabSelected(int newIndex) {
-    setState(() {
-      _selectedTab = newIndex;
-      _tabController.index = newIndex;
-    });
+    setState(() => _selectedTab = newIndex);
   }
 
   Widget _buildBodyContent() {

@@ -65,22 +65,23 @@ class _SearchPageState extends State<SearchPage> {
           controller: _textEditingController,
           onFieldSubmitted: (keyword) => searchBtnClick(keyword),
           decoration: InputDecoration(
-              labelText: defaultHint,
-              labelStyle: TextStyle(color: Colors.amberAccent),
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25.0),
+            labelText: defaultHint,
+            labelStyle: TextStyle(color: Colors.amberAccent),
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25.0),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: Colors.grey,
+                width: 0.0, /// width: 0.0 produces a thin "hairline" border
               ),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: const BorderSide(
-                    color: Colors.grey,
-                    width: 0.0), // width: 0.0 produces a thin "hairline" border
-              )),
+            ),
+          ),
           style: TextStyle(fontFamily: "Poppins", color: Colors.white),
         ),
       ),
     );
-
     return widget;
   }
 
@@ -106,6 +107,7 @@ class _SearchPageState extends State<SearchPage> {
       return Expanded(child: Stack(children: [lv]));
     }
 
+    ///一開始進入searchPage
     String searchText = _textEditingController.text;
     if (searchText != null && searchText.isEmpty) {
       return Center();
@@ -124,7 +126,7 @@ class _SearchPageState extends State<SearchPage> {
   void _searchMovie(String keyword) {
     print("search : $keyword");
     _status.searchKeyWord = keyword;
-    api.DoubanAPI.internal()
+    api.DoubanAPI()
         .search(keyword: keyword, startIndex: _status.itemIndex)
         .then((Movies movie) {
       /// handle data
