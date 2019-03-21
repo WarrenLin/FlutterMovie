@@ -13,6 +13,7 @@ class MainPage extends StatefulWidget {
 const tabTitles = ["熱映中", "搜尋", "戲院"];
 
 class _MainPageState extends State<MainPage> {
+
   int _selectedTab = 0;
 
   @override
@@ -31,7 +32,7 @@ class _MainPageState extends State<MainPage> {
         leading: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Image.asset(ImageAssets.app_logo_icon),
-        ), //app_logo_icon
+        ),
       ),
       body: Column(
         children: [

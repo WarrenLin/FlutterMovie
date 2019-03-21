@@ -4,7 +4,8 @@ import 'package:flutter_movie_app/model/movie.dart';
 class HomeCell extends StatelessWidget {
   final Movie _movie;
   final VoidCallback _callback;
-  HomeCell(this._movie,this._callback);
+
+  HomeCell(this._movie, this._callback);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class HomeCell extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Image.network(_movie.images.large,fit:BoxFit.fill),
+          Image.network(_movie.images.large, fit: BoxFit.fill),
           _TextualInfo(_movie),
           Material(
             color: Colors.transparent,
@@ -48,12 +49,8 @@ class _TextualInfo extends StatelessWidget {
       gradient: LinearGradient(
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
-        stops: [0.0, 0.7, 0.7],
-        colors: [
-          Colors.black,
-          Colors.transparent,
-          Colors.transparent,
-        ],
+        stops: [0.0, 0.3],
+        colors: [Colors.black, Colors.transparent],
       ),
     );
   }
@@ -63,15 +60,12 @@ class _TextualInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          _movie.title,
-          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16.0),
-        ),
+        Text(_movie.title,
+            style:
+                const TextStyle(fontWeight: FontWeight.w500, fontSize: 16.0)),
         const SizedBox(height: 4.0),
-        Text(
-          _movie.genres.toString(),
-          style: const TextStyle(fontSize: 12.0, color: Colors.white70),
-        )
+        Text(_movie.genres.toString(),
+            style: const TextStyle(fontSize: 12.0, color: Colors.white70))
       ],
     );
   }
