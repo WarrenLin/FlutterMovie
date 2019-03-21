@@ -86,7 +86,7 @@ class _ListWidget extends State<MovieInTitles>
 
   Widget getSubTitleWidget(Theater theater) {
     return Container(
-      height: 110.0,
+      height: 115.0,
       color: Colors.black54,
       margin: EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 10.0),
       child: Stack(
@@ -115,6 +115,7 @@ class _ListWidget extends State<MovieInTitles>
                 Align(
                     alignment: Alignment.centerLeft,
                     child: Text(theater.address,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Colors.white70))),
               ],
             ),
