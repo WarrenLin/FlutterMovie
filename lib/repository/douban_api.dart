@@ -57,8 +57,6 @@ class DoubanAPI {
 
   Future<Map<String, dynamic>> getTheater() async {
     return parseJsonFromAssets('assets/data/theater.json');
-//    Map<String, dynamic> dmap = await parseJsonFromAssets('assets/data/theater.json');
-//    return (dmap[cityName] as List).map((value) => Theater.from(value)).toList();
   }
 
   Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
