@@ -16,11 +16,6 @@ class _MainPageState extends State<MainPage> {
   int _selectedTab = 0;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final backgroundImage = Image.asset(
       ImageAssets.backgroundImage,
@@ -38,7 +33,7 @@ class _MainPageState extends State<MainPage> {
           child: Image.asset(ImageAssets.app_logo_icon),
         ), //app_logo_icon
       ),
-      body: Stack(
+      body: Column(
         children: [
           _buildBodyContent(),
           _BottomTabs(
@@ -70,13 +65,11 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildBodyContent() {
-    return Positioned.fill(
-      child: Padding(
-          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 40.0),
-          child: IndexedStack(
-            children: <Widget>[HomePage(), SearchPage(), TheaterPage()],
-            index: _selectedTab,
-          )),
+    return Expanded(
+      child: IndexedStack(
+        children: <Widget>[HomePage(), SearchPage(), TheaterPage()],
+        index: _selectedTab,
+      ),
     );
   }
 }
@@ -92,32 +85,30 @@ class _BottomTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-        alignment: Alignment.bottomCenter,
-        child: CupertinoTabBar(
-          backgroundColor: Colors.black54,
-          inactiveColor: Colors.white54,
-          activeColor: Colors.white,
-          iconSize: 24.0,
-          currentIndex: selectedTab,
-          onTap: onTap,
-          items: [
-            BottomNavigationBarItem(
-              title: Text(tabTitles[0]),
-              icon: const Icon(Icons.local_movies),
-              backgroundColor: Theme.of(context).primaryColor,
-            ),
-            BottomNavigationBarItem(
-              title: Text(tabTitles[1]),
-              icon: const Icon(Icons.search),
-              backgroundColor: Theme.of(context).primaryColor,
-            ),
-            BottomNavigationBarItem(
-              title: Text(tabTitles[2]),
-              icon: const Icon(Icons.store_mall_directory),
-              backgroundColor: Theme.of(context).primaryColor,
-            ),
-          ],
-        ));
+    return CupertinoTabBar(
+      backgroundColor: Colors.black54,
+      inactiveColor: Colors.white54,
+      activeColor: Colors.white,
+      iconSize: 24.0,
+      currentIndex: selectedTab,
+      onTap: onTap,
+      items: [
+        BottomNavigationBarItem(
+          title: Text(tabTitles[0]),
+          icon: const Icon(Icons.local_movies),
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
+        BottomNavigationBarItem(
+          title: Text(tabTitles[1]),
+          icon: const Icon(Icons.search),
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
+        BottomNavigationBarItem(
+          title: Text(tabTitles[2]),
+          icon: const Icon(Icons.store_mall_directory),
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
+      ],
+    );
   }
 }
