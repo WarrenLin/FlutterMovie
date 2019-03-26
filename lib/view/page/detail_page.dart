@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/assets.dart';
+import 'package:flutter_movie_app/model/movie.dart';
 import 'package:flutter_movie_app/model/movie_info.dart';
 import 'package:flutter_movie_app/repository/douban_api.dart' as api;
 import 'package:flutter_movie_app/view/widgets/cast_view.dart';
+import 'package:flutter_movie_app/view/widgets/loading_footer.dart';
 import 'package:flutter_movie_app/view/widgets/movie_intro_cell.dart';
+
+const String DefaultHeroTag = "HeroTag";
 
 class DetailPage extends StatefulWidget {
   final String id;
   final String title;
+  final String imgUrl;
+  final String heroTag;
 
-  DetailPage({@required this.id, @required this.title});
+  DetailPage({
+    @required this.id,
+    @required this.title,
+    @required this.imgUrl,
+    @required this.heroTag,
+  });
 
   @override
   _DetailPageState createState() => _DetailPageState();
@@ -32,15 +43,16 @@ class _DetailPageState extends State<DetailPage> {
       ImageAssets.backgroundImage,
       fit: BoxFit.cover,
     );
-    final content = Scaffold(
+    final content = Hero(
+      tag: widget.heroTag.isEmpty ? DefaultHeroTag : widget.heroTag,
+      child: Scaffold(
         appBar: createAppBar(),
-        body: _movieInfo == null
-            ? Center(child: CircularProgressIndicator())
-            : _createBody());
+        body: _createBody(),
+      ),
+    );
 
     return Stack(
-        fit: StackFit.expand,
-        children: <Widget>[backgroundImage, content]);
+        fit: StackFit.expand, children: <Widget>[backgroundImage, content]);
   }
 
   AppBar createAppBar() {
@@ -68,23 +80,24 @@ class _DetailPageState extends State<DetailPage> {
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
               child: MovieIntroCell(
-                  imgUrl: _movieInfo.images.large,
+                  imgUrl: widget.imgUrl ?? _movieInfo.images.large,
                   title: _getTitle(),
-                  avgRatings: _movieInfo.rating.average.toString(),
-                  alDirectors: _movieInfo.directors,
-                  sorts: _movieInfo.genres == null || _movieInfo.genres.isEmpty
-                      ? ""
-                      : _movieInfo.genres.toString()),
+                  avgRatings: _movieInfo?.rating?.average?.toString() ?? "",
+                  alDirectors: _movieInfo?.directors ?? [],
+                  sorts:
+                      _movieInfo?.genres == null || _movieInfo?.genres?.isEmpty
+                          ? ""
+                          : _movieInfo.genres.toString()),
             ),
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                _movieInfo.summary + _movieInfo.summary,
+                _movieInfo?.summary ?? "",
                 style: TextStyle(
                     color: Colors.white70, fontSize: 16.0, letterSpacing: 2.0),
               ),
             ),
-            CastView(_movieInfo.casts),
+            _createCastView(),
           ],
         ),
       ),
@@ -93,8 +106,8 @@ class _DetailPageState extends State<DetailPage> {
 
   String _getTitle() {
     StringBuffer sb = StringBuffer();
-    String title = _movieInfo.title;
-    String originalTitle = _movieInfo.original_title;
+    String title = _movieInfo?.title ?? "";
+    String originalTitle = _movieInfo?.original_title ?? "";
     if (title != null && title.isNotEmpty) {
       sb.write(title);
     }
@@ -104,5 +117,12 @@ class _DetailPageState extends State<DetailPage> {
       sb.write("($originalTitle)");
     }
     return sb.toString();
+  }
+
+  Widget _createCastView() {
+    if (_movieInfo?.casts == null) {
+      return LoadingFooter();
+    }
+    return CastView(_movieInfo?.casts ?? List<Casts>());
   }
 }

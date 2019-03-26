@@ -101,17 +101,23 @@ class _HomePageState extends State<HomePage> {
         controller: _scrollController,
         itemBuilder: (BuildContext context, int index) {
           Movie movie = _status.movieList[index];
-          return HomeCell(movie, () {
-            print("click:" + movie.title);
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DetailPage(
-                        id: movie.id,
-                        title: movie.title,
-                      )),
-            );
-          });
+          String img = movie?.images?.large ?? "";
+          return Hero(
+            tag: img + "homePage",
+            child: HomeCell(movie, () {
+              print("click:" + movie.title);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailPage(
+                          id: movie.id,
+                          title: movie.title,
+                          imgUrl: img,
+                          heroTag: img + "homePage",
+                        )),
+              );
+            }),
+          );
         });
   }
 }

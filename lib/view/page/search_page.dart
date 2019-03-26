@@ -74,7 +74,9 @@ class _SearchPageState extends State<SearchPage> {
             enabledBorder: const OutlineInputBorder(
               borderSide: const BorderSide(
                 color: Colors.grey,
-                width: 0.0, /// width: 0.0 produces a thin "hairline" border
+                width: 0.0,
+
+                /// width: 0.0 produces a thin "hairline" border
               ),
             ),
           ),
@@ -156,17 +158,26 @@ class _SearchPageState extends State<SearchPage> {
                 : movie.genres.toString(),
             avgRatings: movie.rating.average.toString(),
           );
+          String img = movie?.images?.large ?? "";
           return Column(children: <Widget>[
-            InkWell(
-              child: cell,
-              onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DetailPage(
-                              id: movie.id,
-                              title: movie.title,
-                            )),
-                  ),
+            Hero(
+              tag: img + "SearchPage",
+              child: Material(
+                type: MaterialType.transparency,
+                child: InkWell(
+                  child: cell,
+                  onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DetailPage(
+                                  id: movie.id,
+                                  title: movie.title,
+                                  imgUrl: movie.images.large,
+                                  heroTag: img + "SearchPage",
+                                )),
+                      ),
+                ),
+              ),
             ),
             Divider(color: Colors.white24)
           ]);
