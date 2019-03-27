@@ -32,9 +32,13 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
-    api.DoubanAPI.internal()
-        .getMovieInfo(id: widget.id)
-        .then((movieInfo) => setState(() => _movieInfo = movieInfo));
+    api.DoubanAPI.internal().getMovieInfo(id: widget.id).then((movieInfo) {
+      ///If it is an expected behavior that the Future completes when
+      ///the widget already got disposed you can use
+      if (this.mounted) {
+        setState(() => _movieInfo = movieInfo);
+      }
+    });
   }
 
   @override
@@ -43,12 +47,9 @@ class _DetailPageState extends State<DetailPage> {
       ImageAssets.backgroundImage,
       fit: BoxFit.cover,
     );
-    final content = Hero(
-      tag: widget.heroTag.isEmpty ? DefaultHeroTag : widget.heroTag,
-      child: Scaffold(
-        appBar: createAppBar(),
-        body: _createBody(),
-      ),
+    final content = Scaffold(
+      appBar: createAppBar(),
+      body: _createBody(),
     );
 
     return Stack(
@@ -79,15 +80,17 @@ class _DetailPageState extends State<DetailPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
-              child: MovieIntroCell(
-                  imgUrl: widget.imgUrl ?? _movieInfo.images.large,
-                  title: _getTitle(),
-                  avgRatings: _movieInfo?.rating?.average?.toString() ?? "",
-                  alDirectors: _movieInfo?.directors ?? [],
-                  sorts:
-                      _movieInfo?.genres == null || _movieInfo?.genres?.isEmpty
-                          ? ""
-                          : _movieInfo.genres.toString()),
+              child: Hero(
+                tag: widget.heroTag.isEmpty ? DefaultHeroTag : widget.heroTag,
+                child: MovieIntroCell(
+                    imgUrl: widget.imgUrl ?? _movieInfo.images.large,
+                    title: _getTitle(),
+                    avgRatings: _movieInfo?.rating?.average?.toString() ?? "",
+                    alDirectors: _movieInfo?.directors ?? [],
+                    sorts: _movieInfo?.genres == null || _movieInfo.genres.isEmpty
+                        ? ""
+                        : _movieInfo.genres.toString()),
+              ),
             ),
             Padding(
               padding: EdgeInsets.all(8.0),

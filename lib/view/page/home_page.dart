@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     super.dispose();
-    _scrollController.removeListener(_listener);
+    _scrollController.dispose();
     print("HomePage dispose!!!!");
   }
 
@@ -102,8 +102,9 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (BuildContext context, int index) {
           Movie movie = _status.movieList[index];
           String img = movie?.images?.large ?? "";
+          String homePageTag = "${movie?.title ?? "_"}homePage$index";
           return Hero(
-            tag: img + "homePage",
+            tag: homePageTag,
             child: HomeCell(movie, () {
               print("click:" + movie.title);
               Navigator.push(
@@ -113,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                           id: movie.id,
                           title: movie.title,
                           imgUrl: img,
-                          heroTag: img + "homePage",
+                          heroTag: homePageTag,
                         )),
               );
             }),
