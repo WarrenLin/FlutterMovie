@@ -13,7 +13,6 @@ class MainPage extends StatefulWidget {
 const tabTitles = ["熱映中", "搜尋", "戲院"];
 
 class _MainPageState extends State<MainPage> {
-
   int _selectedTab = 0;
 
   @override

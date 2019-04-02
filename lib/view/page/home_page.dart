@@ -38,9 +38,12 @@ class _HomePageState extends State<HomePage> {
     api.DoubanAPI()
         .getInTheaters(startIndex: _status.itemIndex)
         .then((Movies movies) {
-      _status.totalCount = movies.total;
-      movies.subjects.forEach((Movie movie) => _status.movieList.add(movie));
-      setLoading(false);
+      ///確保資料正確不重複
+      if (movies.start == _status.itemIndex) {
+        _status.totalCount = movies.total;
+        movies.subjects.forEach((Movie movie) => _status.movieList.add(movie));
+        setLoading(false);
+      }
     }).catchError((onError) {
       print("_getMovieByApi xxxx:$onError");
       Scaffold.of(context).showSnackBar(SnackBar(

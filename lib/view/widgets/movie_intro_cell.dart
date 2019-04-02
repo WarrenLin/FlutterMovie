@@ -22,9 +22,9 @@ class MovieIntroCell extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Expanded(flex: 4, child: Image.network(imgUrl ?? "")),
+          Expanded(flex: 3, child: Image.network(imgUrl ?? "")),
           Expanded(
-            flex: 6,
+            flex: 7,
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Stack(
@@ -51,6 +51,7 @@ class MovieIntroCell extends StatelessWidget {
       alignment: Alignment.topLeft,
       child: Text(
         title,
+        maxLines: 3,
         style: TextStyle(fontSize: 22.0, color: Colors.white),
       ),
     );
@@ -102,13 +103,18 @@ class MovieIntroCell extends StatelessWidget {
         alignment: Alignment.bottomRight,
         child: Padding(
           padding: const EdgeInsets.only(right: 8.0),
-          child: Text(
-            avgRatings,
-            style: TextStyle(
-                fontSize: 26.0,
-                color: Colors.pinkAccent,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              Text(
+                avgRatings,
+                style: TextStyle(color: Colors.amberAccent, fontSize: 16.0),
+              ),
+            ],
           ),
         ),
       );

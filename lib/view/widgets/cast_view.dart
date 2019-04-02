@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/model/movie.dart';
 
+typedef CastCallback(Casts cast);
+
 class CastView extends StatelessWidget {
   final List<Casts> castImages;
+  final CastCallback callback;
 
-  CastView(this.castImages);
+  CastView(this.castImages, this.callback);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,9 @@ class CastView extends StatelessWidget {
             height: 100.0,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: castImages.map((cast) => AvatarWidget(cast)).toList(),
+              children: castImages
+                  .map((cast) => AvatarWidget(cast, callback))
+                  .toList(),
             ),
           )
         ],
@@ -44,25 +49,33 @@ class CastView extends StatelessWidget {
 
 class AvatarWidget extends StatelessWidget {
   final Casts cast;
+  final CastCallback callback;
 
-  AvatarWidget(this.cast);
+  AvatarWidget(this.cast, this.callback);
 
   @override
   Widget build(BuildContext context) {
+    String imgUrl = cast?.avatars?.large ?? "";
     return Container(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
-        child: Column(
-          children: <Widget>[
-            CircleAvatar(
-                radius: 35.0,
-                backgroundImage: NetworkImage(cast.avatars.large ?? ""),
-                backgroundColor: Colors.transparent),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-              child: Text(cast.name, style: TextStyle(fontSize: 12.0),),
-            )
-          ],
+        child: GestureDetector(
+          child: Column(
+            children: <Widget>[
+              CircleAvatar(
+                  radius: 35.0,
+                  backgroundImage: NetworkImage(imgUrl),
+                  backgroundColor: Colors.transparent),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                child: Text(
+                  cast.name,
+                  style: TextStyle(fontFamily: "zhFont", fontSize: 12.0),
+                ),
+              )
+            ],
+          ),
+          onTap: () => callback(cast),
         ),
       ),
     );

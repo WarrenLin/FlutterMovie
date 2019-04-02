@@ -73,9 +73,7 @@ class _SearchPageState extends State<SearchPage> {
           enabledBorder: const OutlineInputBorder(
             borderSide: const BorderSide(
               color: Colors.grey,
-              width: 0.0,
-
-              /// width: 0.0 produces a thin "hairline" border
+              width: 0.0, // width: 0.0 produces a thin "hairline" border
             ),
           ),
         ),
@@ -130,12 +128,14 @@ class _SearchPageState extends State<SearchPage> {
         .search(keyword: keyword, startIndex: _status.itemIndex)
         .then((Movies movie) {
       /// handle data
-      List<Movie> subjects = movie.subjects;
-      if (subjects != null && subjects.isNotEmpty) {
-        _status.totalCount = movie.total;
-        subjects.forEach((Movie m) => _status.movieList.add(m));
+      if (movie.start == _status.itemIndex) {
+        List<Movie> subjects = movie.subjects;
+        if (subjects != null && subjects.isNotEmpty) {
+          _status.totalCount = movie.total;
+          subjects.forEach((Movie m) => _status.movieList.add(m));
+        }
+        setSearchStatus(false);
       }
-      setSearchStatus(false);
     }).catchError((error) {
       print("occur error ${error.message}");
       setSearchStatus(false);

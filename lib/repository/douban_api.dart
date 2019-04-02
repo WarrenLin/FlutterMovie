@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_movie_app/model/celebrity.dart';
 import 'package:flutter_movie_app/model/movie_info.dart';
 import 'package:flutter_movie_app/model/movies.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -62,5 +63,14 @@ class DoubanAPI {
   Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
     return rootBundle.loadString(assetsPath)
         .then((jsonStr) => jsonDecode(jsonStr));
+  }
+
+  Future<CelebrityInfo> getCelebrityInfo({String castId}) async {
+    var path = new StringBuffer("https://api.douban.com/v2/movie/celebrity/");
+    path.write("$castId");
+    print("getCelebrityInfo:${path.toString()}");
+    Response response = await _dioGet(path.toString());
+    print(response.data.toString());
+    return CelebrityInfo.from(response.data);
   }
 }
