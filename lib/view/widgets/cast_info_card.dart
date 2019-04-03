@@ -23,19 +23,24 @@ class CastInfoCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(left: 8.0, right: 8.0),
       height: MediaQuery.of(context).size.height / 4 * 3,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.center,
+          stops: [0.0, 0.02],
+          colors: <Color>[Color(0xffCCCCCC), Color(0XFFF8F8F8)],
+        ),
+      ),
       child: Column(
         children: <Widget>[
-          Container(
-            color: Colors.white30,
-            child: Center(
-              child: IconButton(
-                iconSize: 28.0,
-                icon: Icon(
-                  Icons.arrow_drop_down_circle,
-                  color: Color(0xFF152451),
-                ),
-                onPressed: () => Navigator.pop(context),
+          Center(
+            child: IconButton(
+              iconSize: 28.0,
+              icon: Icon(
+                Icons.arrow_drop_down_circle,
+                color: Color(0xFF152451),
               ),
+              onPressed: () => Navigator.pop(context),
             ),
           ),
           Expanded(child: _createCardBody()),
@@ -94,7 +99,7 @@ class CastInfoCard extends StatelessWidget {
               )
             ],
           ),
-          _createMoreBtn(context)
+          _createMoreBtn()
         ],
       ),
     );
@@ -158,25 +163,16 @@ class CastInfoCard extends StatelessWidget {
     return "";
   }
 
-  Widget _createMoreBtn(BuildContext context) {
+  Widget _createMoreBtn() {
     String mobileUrl = celebrityInfo.mobile_url;
     if (mobileUrl != null && mobileUrl.isNotEmpty) {
       var btnStyle =
           TextStyle(color: Color(0xFF152451), fontWeight: FontWeight.bold);
       return MaterialButton(
         child: Text("more", style: btnStyle),
-        onPressed: () {
-          launchURL(mobileUrl);
-        },
+        onPressed: () => Util.launchURL(mobileUrl),
       );
     }
     return Container();
-  }
-
-  launchURL(String url) async {
-    print("launchURL:$url");
-    if (await canLaunch(url)) {
-      await launch(url);
-    }
   }
 }

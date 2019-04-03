@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/model/theater.dart';
 import 'package:flutter_movie_app/repository/douban_api.dart' as api;
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_movie_app/utils/Util.dart';
 
 class TheaterPage extends StatefulWidget {
   @override
@@ -123,23 +123,15 @@ class _ListWidget extends State<MovieInTitles>
           Align(
             alignment: Alignment.topRight,
             child: IconButton(
-                icon: Icon(
-                  Icons.theaters,
-                  color: Colors.amber,
-                ),
-                onPressed: () {
-                  launchURL(theater.web);
-                }),
+              icon: Icon(
+                Icons.theaters,
+                color: Colors.amber,
+              ),
+              onPressed: () => Util.launchURL(theater.web),
+            ),
           )
         ],
       ),
     );
-  }
-
-  launchURL(String url) async {
-    print("launchURL:$url");
-    if (await canLaunch(url)) {
-      await launch(url);
-    }
   }
 }

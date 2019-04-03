@@ -21,16 +21,24 @@ const Icon starDark = Icon(
 );
 
 class RatingCard extends StatelessWidget {
-  final int ratingCount;
+  final int collectCount;
   final num averageRating;
 
-  RatingCard({@required this.ratingCount, @required this.averageRating});
+  RatingCard({@required this.collectCount, @required this.averageRating});
 
   @override
   Widget build(BuildContext context) {
-    if (ratingCount == 0 || averageRating == 0) {
+    if (averageRating == 0) {
       return Container();
     }
+
+    Widget collectText = (collectCount == 0)
+        ? Container()
+        : Text(
+            collectCount.toString(),
+            style: const TextStyle(color: Colors.grey, fontSize: 14.0),
+          );
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -45,10 +53,7 @@ class RatingCard extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
             createStarIcons(),
-            Text(
-              ratingCount.toString(),
-              style: const TextStyle(color: Colors.grey, fontSize: 14.0),
-            )
+            collectText
           ],
         ),
       ),

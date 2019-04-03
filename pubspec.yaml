@@ -43,4 +43,4 @@ flutter:
   fonts:
     - family: zhFont
       fonts:
-       - asset: fonts/zhFont.ttf
+        - asset: fonts/NotoSansSC-Regular.otf

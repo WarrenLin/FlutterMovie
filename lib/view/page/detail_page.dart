@@ -32,16 +32,25 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   MovieInfo _movieInfo;
+  String _summary;
   Map<String, CelebrityInfo> _castMap = {};
 
   @override
   void initState() {
     super.initState();
-    api.DoubanAPI.internal().getMovieInfo(id: widget.id).then((movieInfo) {
+    api.DoubanAPI().getFullMoveInfo(id: widget.id).then((movieInfo) {
       ///If it is an expected behavior that the Future completes when
       ///the widget already got disposed you can use
       if (this.mounted) {
         setState(() => _movieInfo = movieInfo);
+      }
+    });
+
+    ///get summary
+    api.DoubanAPI().getMovieInfo(id: widget.id).then((moveInfo) {
+      _summary = moveInfo.summary;
+      if (_movieInfo != null) {
+        setState((){});
       }
     });
   }
@@ -133,13 +142,15 @@ class _DetailPageState extends State<DetailPage> {
             year: _movieInfo?.year,
             sorts: _movieInfo?.genres,
             directors: _movieInfo?.directors,
+            durations: _movieInfo?.durations,
+            pubDates: _movieInfo?.pubDates,
           ),
         ),
       ),
       Expanded(
         flex: 3,
         child: RatingCard(
-          ratingCount: _movieInfo?.ratings_count ?? 0,
+          collectCount: _movieInfo?.collect_count ?? 0,
           averageRating: _movieInfo?.rating?.average ?? 0,
         ),
       )
@@ -150,7 +161,7 @@ class _DetailPageState extends State<DetailPage> {
     return Padding(
       padding: EdgeInsets.only(top: 5.0),
       child: Text(
-        _movieInfo?.summary ?? "",
+        _summary ?? "",
         style: TextStyle(
           fontFamily: "zhFont",
           color: Colors.black,

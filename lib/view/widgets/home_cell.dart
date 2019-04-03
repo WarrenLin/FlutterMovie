@@ -47,7 +47,7 @@ class _TextualInfo extends StatelessWidget {
       gradient: LinearGradient(
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
-        stops: [0.0, 0.3],
+        stops: [0.0, 0.5],
         colors: [Colors.black, Colors.transparent],
       ),
     );

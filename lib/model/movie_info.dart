@@ -1,4 +1,3 @@
-
 import 'package:flutter_movie_app/model/movie.dart';
 
 class MovieInfo {
@@ -25,19 +24,48 @@ class MovieInfo {
   int ratings_count = 0;
   List<String> aka;
 
-  MovieInfo({this.title, this.rating, this.reviews_count, this.wish_count,
-      this.douban_site, this.year, this.images, this.alt, this.id,
-      this.mobile_url, this.share_url, this.countries, this.genres,
-      this.collect_count, this.casts, this.original_title, this.summary,
-      this.subtype, this.directors, this.comments_count, this.ratings_count,
-      this.aka});
+  List<String> durations;
+  List<String> pubDates;
+
+  List<String> photos;
+
+  MovieInfo(
+      {this.title,
+      this.rating,
+      this.reviews_count,
+      this.wish_count,
+      this.douban_site,
+      this.year,
+      this.images,
+      this.alt,
+      this.id,
+      this.mobile_url,
+      this.share_url,
+      this.countries,
+      this.genres,
+      this.collect_count,
+      this.casts,
+      this.original_title,
+      this.summary,
+      this.subtype,
+      this.directors,
+      this.comments_count,
+      this.ratings_count,
+      this.aka,
+      this.durations,
+      this.pubDates});
 
   factory MovieInfo.from(Map<String, dynamic> json) {
-    List<String> countries = (json['countries'] as List<dynamic>).cast<String>();
-    final List<String> genres = (json['genres'] as List<dynamic>).cast<String>();
+    List<String> countries =
+        (json['countries'] ?? [] as List<dynamic>).cast<String>();
+    List<String> genres = (json['genres'] as List<dynamic>).cast<String>();
     final List casts = json['casts'];
     final List directors = json['directors'];
-    List<String> aka = (json['aka'] as List<dynamic>).cast<String>();
+    List<String> aka = (json['aka'] ?? [] as List<dynamic>).cast<String>();
+    List<String> durations =
+        (json['durations'] ?? [] as List<dynamic>).cast<String>();
+    List<String> pubDates =
+        (json['pubdates'] ?? [] as List<dynamic>).cast<String>();
 
     return MovieInfo(
         title: json['title'],
@@ -61,12 +89,17 @@ class MovieInfo {
         directors: directors.map((item) => Directors.from(item)).toList(),
         comments_count: json['comments_count'],
         ratings_count: json['ratings_count'],
-        aka: aka
-    );
+        aka: aka,
+        durations: durations,
+        pubDates: pubDates);
   }
 
   @override
   String toString() {
     return 'MovieInfo{title: $title, rating: $rating, reviews_count: $reviews_count, wish_count: $wish_count, douban_site: $douban_site, year: $year, images: $images, alt: $alt, id: $id, mobile_url: $mobile_url, share_url: $share_url, countries: $countries, genres: $genres, collect_count: $collect_count, casts: $casts, original_title: $original_title, summary: $summary, subtype: $subtype, directors: $directors, comments_count: $comments_count, ratings_count: $ratings_count, aka: $aka}';
+  }
+
+  void setPhotos(List<String> photos) {
+    this.photos = photos;
   }
 }
