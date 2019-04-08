@@ -10,6 +10,7 @@ import 'package:flutter_movie_app/view/widgets/cast_view.dart';
 import 'package:flutter_movie_app/view/widgets/loading_footer.dart';
 import 'package:flutter_movie_app/view/widgets/movie_desc.dart';
 import 'package:flutter_movie_app/view/widgets/rating_card.dart';
+import 'package:flutter_movie_app/view/widgets/screen_shots_view.dart';
 
 const String DefaultHeroTag = "HeroTag";
 
@@ -32,7 +33,6 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   MovieInfo _movieInfo;
-  String _summary;
   Map<String, CelebrityInfo> _castMap = {};
 
   @override
@@ -43,14 +43,6 @@ class _DetailPageState extends State<DetailPage> {
       ///the widget already got disposed you can use
       if (this.mounted) {
         setState(() => _movieInfo = movieInfo);
-      }
-    });
-
-    ///get summary
-    api.DoubanAPI().getMovieInfo(id: widget.id).then((moveInfo) {
-      _summary = moveInfo.summary;
-      if (_movieInfo != null) {
-        setState((){});
       }
     });
   }
@@ -105,6 +97,7 @@ class _DetailPageState extends State<DetailPage> {
                       widget.imgUrl ?? _movieInfo?.images?.large ?? ""),
                 )),
             _createMovieInfo(),
+            _createScreenShots(),
             _createCastView(context),
           ],
         ),
@@ -161,7 +154,7 @@ class _DetailPageState extends State<DetailPage> {
     return Padding(
       padding: EdgeInsets.only(top: 5.0),
       child: Text(
-        _summary ?? "",
+        _movieInfo?.summary ?? "",
         style: TextStyle(
           fontFamily: "zhFont",
           color: Colors.black,
@@ -170,6 +163,14 @@ class _DetailPageState extends State<DetailPage> {
         ),
       ),
     );
+  }
+
+  Widget _createScreenShots() {
+    List photos = _movieInfo?.photos;
+    if (photos != null && photos.isNotEmpty) {
+      return ScreenShotsView(imgUrls: photos);
+    }
+    return Container();
   }
 
   Widget _createCastView(BuildContext context) {

@@ -49,7 +49,7 @@ class DoubanAPI {
   ///取得完整電影資訊(包含劇照)，需要有apiKey，若失效則call getMovieInfo
   Future<MovieInfo> getFullMoveInfo({String id}) async {
     final requestCount = 10;
-    final requestApiKey = "0df993c66c0c636e29ecbb5344252a4a";//8888
+    final requestApiKey = "0df993c66c0c636e29ecbb5344252a4a";
     var path = StringBuffer(
         "https://api.douban.com/v2/movie/subject/$id/photos?count=$requestCount&apikey=$requestApiKey");
     print("getFullMoveInfo:${path.toString()}");
@@ -63,6 +63,9 @@ class DoubanAPI {
         print("photos : $photos");
         movieInfo.setPhotos(photos);
       }
+
+      ///call getMovieInfo 取得電影summary
+      movieInfo.summary = (await getMovieInfo(id: id)).summary;
       return movieInfo;
     } catch (e) {
       print("getFullMoveInfo error");
