@@ -5,6 +5,7 @@ import 'package:flutter_movie_app/model/movie.dart';
 import 'package:flutter_movie_app/model/movie_info.dart';
 import 'package:flutter_movie_app/repository/douban_api.dart' as api;
 import 'package:flutter_movie_app/utils/ui_util.dart';
+import 'package:flutter_movie_app/view/page/rating_page.dart';
 import 'package:flutter_movie_app/view/widgets/cast_info_card.dart';
 import 'package:flutter_movie_app/view/widgets/cast_view.dart';
 import 'package:flutter_movie_app/view/widgets/loading_footer.dart';
@@ -67,13 +68,7 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   AppBar createAppBar() {
-    final backBtn = GestureDetector(
-      child: Icon(Icons.arrow_back_ios),
-      onTap: () => Navigator.pop(context),
-    );
-
     return AppBar(
-        leading: backBtn,
         title: Text(
           widget.title,
           style: TextStyle(color: Colors.white),
@@ -142,12 +137,28 @@ class _DetailPageState extends State<DetailPage> {
       ),
       Expanded(
         flex: 3,
-        child: RatingCard(
-          collectCount: _movieInfo?.collect_count ?? 0,
-          averageRating: _movieInfo?.rating?.average ?? 0,
+        child: InkWell(
+          child: RatingCard(
+            collectCount: _movieInfo?.collect_count ?? 0,
+            averageRating: _movieInfo?.rating?.average ?? 0,
+          ),
+          onTap: () => _goToRatingPage(_movieInfo.id),
         ),
       )
     ]);
+  }
+
+  void _goToRatingPage(String movieId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RatingPage(
+              movieId: movieId,
+              title: widget.title,
+              headerImgUrl: _movieInfo?.photos[0] ?? "",
+            ),
+      ),
+    );
   }
 
   Widget _createMovieSummary() {

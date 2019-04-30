@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_movie_app/model/celebrity.dart';
+import 'package:flutter_movie_app/model/movie_comment.dart';
 import 'package:flutter_movie_app/model/movie_info.dart';
 import 'package:flutter_movie_app/model/movies.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -99,5 +100,17 @@ class DoubanAPI {
     Response response = await _dioGet(path.toString());
     print(response.data.toString());
     return CelebrityInfo.from(response.data);
+  }
+
+  ///獲取電影條目短評論
+  Future<MovieComment> getMovieComment({String movieId, int start}) async {
+    final requestCount = 20;
+    final requestApiKey = "0df993c66c0c636e29ecbb5344252a4a";
+    var path = new StringBuffer(
+        "https://api.douban.com/v2/movie/subject/$movieId/comments?start=$start&count=$requestCount&apikey=$requestApiKey");
+    print("getMovieComment:${path.toString()}");
+    Response response = await _dioGet(path.toString());
+    print(response.data.toString());
+    return MovieComment.from(response.data);
   }
 }
