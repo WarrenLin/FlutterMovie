@@ -13,7 +13,6 @@ class MainPage extends StatefulWidget {
 const tabTitles = ["熱映中", "搜尋", "戲院"];
 
 class _MainPageState extends State<MainPage> {
-
   int _selectedTab = 0;
 
   @override
@@ -25,9 +24,9 @@ class _MainPageState extends State<MainPage> {
 
     final content = Scaffold(
       appBar: AppBar(
-        title: new Text(tabTitles[_selectedTab],
+        title:  Text(tabTitles[_selectedTab],
             style: TextStyle(color: Colors.white)),
-        iconTheme: new IconThemeData(color: Colors.white),
+        iconTheme:  IconThemeData(color: Colors.white),
         backgroundColor: Color(0xFF152451),
         leading: Padding(
           padding: const EdgeInsets.all(10.0),

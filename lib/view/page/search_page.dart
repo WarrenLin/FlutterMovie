@@ -58,28 +58,26 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget createEditText() {
-    final widget = Container(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: TextFormField(
-          controller: _textEditingController,
-          onFieldSubmitted: (keyword) => searchBtnClick(keyword),
-          decoration: InputDecoration(
-            labelText: defaultHint,
-            labelStyle: TextStyle(color: Colors.amberAccent),
-            fillColor: Colors.white,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.0),
-            ),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: Colors.grey,
-                width: 0.0, /// width: 0.0 produces a thin "hairline" border
-              ),
+    final widget = Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: TextFormField(
+        controller: _textEditingController,
+        onFieldSubmitted: (keyword) => searchBtnClick(keyword),
+        decoration: InputDecoration(
+          labelText: defaultHint,
+          labelStyle: TextStyle(color: Colors.amberAccent),
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+          ),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.grey,
+              width: 0.0, // width: 0.0 produces a thin "hairline" border
             ),
           ),
-          style: TextStyle(fontFamily: "Poppins", color: Colors.white),
         ),
+        style: TextStyle(fontFamily: "Poppins", color: Colors.white),
       ),
     );
     return widget;
@@ -87,7 +85,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget createContent() {
     if (_status.isSearching) {
-      return CircularProgressIndicator();
+      return LoadingFooter();
     }
 
     /// ListView
@@ -130,12 +128,14 @@ class _SearchPageState extends State<SearchPage> {
         .search(keyword: keyword, startIndex: _status.itemIndex)
         .then((Movies movie) {
       /// handle data
-      List<Movie> subjects = movie.subjects;
-      if (subjects != null && subjects.isNotEmpty) {
-        _status.totalCount = movie.total;
-        subjects.forEach((Movie m) => _status.movieList.add(m));
+      if (movie.start == _status.itemIndex) {
+        List<Movie> subjects = movie.subjects;
+        if (subjects != null && subjects.isNotEmpty) {
+          _status.totalCount = movie.total;
+          subjects.forEach((Movie m) => _status.movieList.add(m));
+        }
+        setSearchStatus(false);
       }
-      setSearchStatus(false);
     }).catchError((error) {
       print("occur error ${error.message}");
       setSearchStatus(false);
@@ -147,29 +147,7 @@ class _SearchPageState extends State<SearchPage> {
         controller: _scrollController,
         itemCount: _status.movieList.length,
         itemBuilder: (BuildContext context, int index) {
-          Movie movie = _status.movieList[index];
-          MovieIntroCell cell = MovieIntroCell(
-            imgUrl: movie.images.large,
-            title: movie.title,
-            sorts: (movie.genres == null || movie.genres.isEmpty)
-                ? ""
-                : movie.genres.toString(),
-            avgRatings: movie.rating.average.toString(),
-          );
-          return Column(children: <Widget>[
-            InkWell(
-              child: cell,
-              onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DetailPage(
-                              id: movie.id,
-                              title: movie.title,
-                            )),
-                  ),
-            ),
-            Divider(color: Colors.white24)
-          ]);
+          return _createCell(context, index);
         });
   }
 
@@ -196,5 +174,43 @@ class _SearchPageState extends State<SearchPage> {
       _status.isSearching = isSearch;
       _status.isLoading = isSearch;
     });
+  }
+
+  Widget _createCell(BuildContext context, int index) {
+    Movie movie = _status.movieList[index];
+    String img = movie?.images?.large ?? "";
+    String searchPageTag = "${movie?.title ?? "_"}searchPage$index";
+
+    MovieIntroCell cell = MovieIntroCell(
+      imgUrl: img,
+      title: movie.title,
+      sorts: (movie.genres == null || movie.genres.isEmpty)
+          ? ""
+          : movie.genres.toString(),
+      avgRatings: movie.rating.average.toString(),
+    );
+
+    return Column(children: <Widget>[
+      Hero(
+        tag: searchPageTag,
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            child: cell,
+            onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DetailPage(
+                            id: movie.id,
+                            title: movie.title,
+                            imgUrl: img,
+                            heroTag: searchPageTag,
+                          )),
+                ),
+          ),
+        ),
+      ),
+      Divider(color: Colors.white24)
+    ]);
   }
 }

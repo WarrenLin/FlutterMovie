@@ -38,9 +38,12 @@ class _HomePageState extends State<HomePage> {
     api.DoubanAPI()
         .getInTheaters(startIndex: _status.itemIndex)
         .then((Movies movies) {
-      _status.totalCount = movies.total;
-      movies.subjects.forEach((Movie movie) => _status.movieList.add(movie));
-      setLoading(false);
+      ///確保資料正確不重複
+      if (movies.start == _status.itemIndex) {
+        _status.totalCount = movies.total;
+        movies.subjects.forEach((Movie movie) => _status.movieList.add(movie));
+        setLoading(false);
+      }
     }).catchError((onError) {
       print("_getMovieByApi xxxx:$onError");
       Scaffold.of(context).showSnackBar(SnackBar(
@@ -70,7 +73,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     super.dispose();
-    _scrollController.removeListener(_listener);
+    _scrollController.dispose();
     print("HomePage dispose!!!!");
   }
 
@@ -101,17 +104,24 @@ class _HomePageState extends State<HomePage> {
         controller: _scrollController,
         itemBuilder: (BuildContext context, int index) {
           Movie movie = _status.movieList[index];
-          return HomeCell(movie, () {
-            print("click:" + movie.title);
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DetailPage(
-                        id: movie.id,
-                        title: movie.title,
-                      )),
-            );
-          });
+          String img = movie?.images?.large ?? "";
+          String homePageTag = "${movie?.title ?? "_"}homePage$index";
+          return Hero(
+            tag: homePageTag,
+            child: HomeCell(movie, () {
+              print("click:" + movie.title);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailPage(
+                          id: movie.id,
+                          title: movie.title,
+                          imgUrl: img,
+                          heroTag: homePageTag,
+                        )),
+              );
+            }),
+          );
         });
   }
 }
