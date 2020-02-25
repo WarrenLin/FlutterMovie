@@ -28,7 +28,7 @@ class DoubanAPI {
 
   Future<Movies> getInTheaters({int startIndex}) async {
     var path =
-        new StringBuffer("https://api.douban.com/v2/movie/in_theaters" + "?");
+        new StringBuffer("https://api.douban.com/v2/movie/in_theaters" + "?apikey=0df993c66c0c636e29ecbb5344252a4a&");
     path.write("start=$startIndex");
     path.write("&count=$_fetchCount");
     print("getInTheaters:${path.toString()}");
@@ -37,7 +37,7 @@ class DoubanAPI {
   }
 
   Future<Movies> search({String keyword, int startIndex}) async {
-    var path = new StringBuffer("https://api.douban.com/v2/movie/search" + "?");
+    var path = new StringBuffer("https://api.douban.com/v2/movie/search" + "?apikey=0df993c66c0c636e29ecbb5344252a4a&");
     path.write("q=$keyword");
     path.write("&start=$startIndex");
     path.write("&count=$_fetchCount");
@@ -76,7 +76,10 @@ class DoubanAPI {
 
   Future<MovieInfo> getMovieInfo({String id}) async {
     var path = new StringBuffer("https://api.douban.com/v2/movie/subject/");
+    final requestApiKey = "0df993c66c0c636e29ecbb5344252a4a";
     path.write("$id");
+    path.write("?apikey=$requestApiKey");
+
     print("getMovieInfo:${path.toString()}");
     Response response = await _dioGet(path.toString());
     print(response.data.toString());
@@ -96,6 +99,9 @@ class DoubanAPI {
   Future<CelebrityInfo> getCelebrityInfo({String castId}) async {
     var path = new StringBuffer("https://api.douban.com/v2/movie/celebrity/");
     path.write("$castId");
+    final requestApiKey = "0df993c66c0c636e29ecbb5344252a4a";
+    path.write("?apikey=$requestApiKey");
+
     print("getCelebrityInfo:${path.toString()}");
     Response response = await _dioGet(path.toString());
     print(response.data.toString());
