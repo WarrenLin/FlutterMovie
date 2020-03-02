@@ -79,6 +79,9 @@ class RatingCard extends StatelessWidget {
       stars.add(starDark);
     }
 
-    return Row(mainAxisSize: MainAxisSize.min, children: stars);
+    //多包一層避免星星被卡到
+    return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(mainAxisSize: MainAxisSize.min, children: stars));
   }
 }
